@@ -19,11 +19,11 @@ CREATE TABLE IF NOT EXISTS t_user (
   `signature` varchar(100) DEFAULT NULL COMMENT '个性签名',
   `gender` int(1) NOT NULL default 0 COMMENT '性别',
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`avatarId`) REFERENCES t_attachement(`id`) ON DELETE CASCADE
+  FOREIGN KEY (`avatarId`) REFERENCES t_Attachment(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 #附件表
-CREATE TABLE IF NOT EXISTS t_attachement (
+CREATE TABLE IF NOT EXISTS t_Attachment (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长主键',
   `name` varchar(30) NOT NULL COMMENT '文件名',
   `groupName` varchar(50) NOT NULL COMMENT '对应在FastDFS上的group',
@@ -33,6 +33,14 @@ CREATE TABLE IF NOT EXISTS t_attachement (
   `userId` int(11) NOT NULL COMMENT '用户id',
   `token` varchar(100) NOT NULL COMMENT '用户token',
   `createDate` datetime default NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+#服务器表
+CREATE TABLE IF NOT EXISTS t_Attachment (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长主键',
+  `ip` varchar(30) NOT NULL COMMENT 'ip地址',
+  `port` int(10) NOT NULL COMMENT '端口',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 

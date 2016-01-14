@@ -1,64 +1,61 @@
 package com.lhs.weichat.bean;
 
 /**
- * Result
+ * 请求返回对象
+ * 
+ * @author chenbiao
  *
- * @author longhuashen
- * @since 15/9/24
  */
 public class Result {
+	public Result(boolean success) {
+		this.success = success;
+	}
 
-    /**
-     * 请求处理是否成功
-     */
-    private boolean success;
+	public Result(boolean success, String message) {
+		this.success = success;
+		this.message = message;
+	}
 
-    /**
-     * 返回的文本提示消息
-     */
-    private String message;
+	public Result(boolean success, String message, Object obj) {
+		this.success = success;
+		this.message = message;
+		this.obj = obj;
+	}
 
-    /**
-     * 附加业务对象
-     */
-    private Object obj;
+	/**
+	 * 请求处理是否成功
+	 */
+	private boolean success;
+	/**
+	 * 返回的文本提示消息
+	 */
+	private String message;
+	/**
+	 * 附加业务对象
+	 */
+	private Object obj;
 
-    public Result(boolean success) {
-        this.success = success;
-    }
+	public boolean isSuccess() {
+		return success;
+	}
 
-    public Result(boolean success, String message) {
-        this.success = success;
-        this.message = message;
-    }
+	public String getMessage() {
+		return message;
+	}
 
-    public Result(boolean success, String message, Object obj) {
-        this.success = success;
-        this.message = message;
-        this.obj = obj;
-    }
+	public Object getObj() {
+		return obj;
+	}
 
-    public boolean isSuccess() {
-        return success;
-    }
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getObj() {
-        return obj;
-    }
-
-    public void setObj(Object obj) {
-        this.obj = obj;
-    }
+	public void setObj(Object obj) {
+		this.obj = obj;
+	}
 }

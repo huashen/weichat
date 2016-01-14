@@ -2,115 +2,120 @@ package com.lhs.weichat.bean;
 
 import java.util.Date;
 
-/**
- * User
- *
- * @author longhuashen
- * @since 15/9/24
- */
-public class User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-    /**
-     * id
-     */
-    private int id;
+@Entity
+@Table(name = "User")
+public class User extends BaseEntity {
 
-    /**
-     * 账号
-     */
-    private String account;
+	public static int GENDER_MALE = 0;// 男性
+	public static int GENDER_FEMALE = 1;// 女性
+	public static int GENDER_UNKNOWN = 2;// 未知
 
-    /**
-     * 密码
-     */
-    private String password;
+	/**
+	 * 账号
+	 */
+	@Column(length = 30)
+	private String account;
+	/**
+	 * 密码
+	 */
+	@Column(length = 50)
+	private String password;
 
-    /**
-     * 昵称
-     */
-    private String name;
+	/**
+	 * 昵称
+	 */
+	@Column(length = 30)
+	private String name;
 
-    /**
-     * 生日
-     */
-    private Date birthday;
+	/**
+	 * 头像路径
+	 */
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = Attachment.class)
+	@JoinColumn(name = "avatarId", updatable = false)
+	private Attachment avatar;
 
-    /**
-     * 个性签名
-     */
-    private String signature;
+	/**
+	 * 生日
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column
+	private Date birthday;
 
-    /**
-     * 性别
-     */
-    private int gender;
+	/**
+	 * 个性签名
+	 */
+	@Column(length = 200)
+	private String signature;
 
-    /**
-     * 头像
-     */
-    private Attachement avatar;
+	/**
+	 * 个人性别，0男1女2未知
+	 */
+	@Column(nullable = false, columnDefinition = "INT default 0")
+	private int gender;
 
-    public int getId() {
-        return id;
-    }
+	public String getAccount() {
+		return account;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getAccount() {
-        return account;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Attachment getAvatar() {
+		return avatar;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setAvatar(Attachment avatar) {
+		this.avatar = avatar;
+	}
 
-    public Date getBirthday() {
-        return birthday;
-    }
+	public Date getBirthday() {
+		return birthday;
+	}
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    public String getSignature() {
-        return signature;
-    }
+	public String getSignature() {
+		return signature;
+	}
 
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 
-    public int getGender() {
-        return gender;
-    }
+	public int getGender() {
+		return gender;
+	}
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
 
-    public Attachement getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(Attachement avatar) {
-        this.avatar = avatar;
-    }
 }

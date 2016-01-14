@@ -2,6 +2,8 @@ package com.lhs.weichat.service;
 
 import com.lhs.weichat.bean.User;
 
+import java.util.List;
+
 /**
  * IUserService
  *
@@ -23,4 +25,18 @@ public interface IUserService {
      * @return
      */
     User getUserByAccount(String account);
+
+    /**
+     * 查找用户
+     * @param condition
+     * @return
+     */
+    List<User> search(String condition);
+
+    /**
+     * 根据id获取用户
+     * @param userId
+     * @return
+     */
+    User getUserById(int userId);
 }

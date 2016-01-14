@@ -1,8 +1,8 @@
 package com.lhs.service;
 
-import com.lhs.weichat.bean.Attachement;
+import com.lhs.weichat.bean.Attachment;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.service.IAttachemntService;
+import com.lhs.weichat.service.IAttachmntService;
 import com.lhs.weichat.service.IUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public final class TestUserService {
     private IUserService userService;
 
     @Autowired
-    private IAttachemntService attachemntService;
+    private IAttachmntService attachemntService;
 
     @Test
     public void addUser() {
@@ -37,9 +37,9 @@ public final class TestUserService {
         user.setBirthday(new Date());
         user.setGender(1);
         user.setSignature("1111111111111111");
-        Attachement attachement = attachemntService.getAttachementById(1);
-        System.out.println(attachement.getName());
-        user.setAvatar(attachement);
+        Attachment Attachment = attachemntService.getAttachmentById(1);
+        System.out.println(Attachment.getName());
+        user.setAvatar(Attachment);
         user.setGender(1);
         userService.addUser(user);
     }
