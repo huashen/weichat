@@ -2,18 +2,6 @@ package com.lhs.weichat.bean;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
-@Entity
-@Table(name = "ChatMessage")
 public class ChatMessage {
 	/**
 	 * 发送消息
@@ -41,60 +29,56 @@ public class ChatMessage {
 	/**
 	 * 非持久化字段
 	 */
-	@Transient
 	private String token;
-	@Column
+
 	private int fromId;
-	@Column(length = 150)
+
 	private String uuid;
 
-	@Column
+
 	private int status;
 
-	@Column
+
 	private int toId;
 
-	@Column(length = 500)
+
 	private String content;
 
 	/**
 	 * 消息内容类型，0为普通消息，1为带附件消息
 	 */
-	@Column
+
 	private int contentType;
 
 	/**
 	 * 带附件的消息
 	 */
-	@OneToOne(fetch = FetchType.LAZY, targetEntity = Attachment.class)
-	@JoinColumn(name = "attachmentId", updatable = false)
+
 	private Attachment attachment;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column
 	private Date date;
 
 	/**
 	 * 消息类型，0--发送消息，1--接收消息
 	 */
-	@Column
+
 	private int type;
 	/**
 	 * 消息类型，0--人人消息 1--群消息 2--讨论组消息
 	 */
-	@Column
+
 	private int msgType;
 
 	/**
 	 * 当msgtype为群消息时不为空
 	 */
-	@Column
+
 	private int chatGroupId;
 
 	/**
 	 * 当为讨论组消息时不为空
 	 */
-	@Column
+
 	private int discussionGroupId;
 	// 是否需要转发，如果传入的是clinet则需要转发，如果是服务端则说明本就是转发消息不需要转发
 	private boolean transfer;

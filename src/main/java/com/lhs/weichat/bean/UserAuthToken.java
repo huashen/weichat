@@ -2,23 +2,12 @@ package com.lhs.weichat.bean;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 /**
  * 用户认证码
  * 
  * @author chenbiao
  *
  */
-@Entity
-@Table(name = "UserAuthToken")
 public class UserAuthToken {
 
 	private int id;
@@ -29,23 +18,20 @@ public class UserAuthToken {
 	/**
 	 * 创建人Id
 	 */
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-	@JoinColumn(name = "userId", updatable = false)
 	private User user;
 	/**
 	 * 认证token
 	 */
-	@Column(length = 100)
 	private String token;
+
 	/**
 	 * 还是否有效
 	 */
-	@Column
 	private boolean enable;
+
 	/**
 	 * 使用该token的客户端类型
 	 */
-	@Column(length = 250)
 	private String clientType;
 	/**
 	 * 创建日期
@@ -53,13 +39,10 @@ public class UserAuthToken {
 	/**
 	 * 创建时间
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column
 	private Date createDate;
 	/**
 	 * 用户客户端唯一标示
 	 */
-	@Column(length = 50, nullable = false)
 	private String clientId;
 
 	public int getId() {

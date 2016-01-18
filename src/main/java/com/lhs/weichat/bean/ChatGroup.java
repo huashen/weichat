@@ -2,14 +2,6 @@ package com.lhs.weichat.bean;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * 聊天群
@@ -17,8 +9,6 @@ import javax.persistence.TemporalType;
  * @author chenbiao
  *
  */
-@Entity
-@Table(name = "ChatGroup")
 public class ChatGroup {
 
 	/**

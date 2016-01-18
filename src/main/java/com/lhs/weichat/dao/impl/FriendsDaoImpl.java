@@ -2,9 +2,7 @@ package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.Friends;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.BaseDao;
 import com.lhs.weichat.dao.IFriendsDao;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,16 +13,12 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/5
  */
-//@Repository
-public class FriendsDaoImpl extends BaseDao implements IFriendsDao {
+@Repository
+public class FriendsDaoImpl extends GenericDaoImpl implements IFriendsDao {
 
     @Override
     public List<Friends> getFriendsByUserId(int userId) {
-        String hql = "from Friends where userId =?";
-        Query query = this.getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setInteger(0, userId);
-
-        return query.list();
+        return null;
     }
 
     @Override
@@ -39,15 +33,11 @@ public class FriendsDaoImpl extends BaseDao implements IFriendsDao {
 
     @Override
     public Friends getFriendsByUserIdAndFriendsUserId(int userId, int friendId) {
-        String hql = "from Friends where userId =? and friendsId =?";
-        Query query = this.getSessionFactory().getCurrentSession().createQuery(hql);
-        query.setInteger(0, userId);
-        query.setInteger(1, friendId);
-        return (Friends) query.uniqueResult();
+        return null;
     }
 
     @Override
     public void saveFriend(Friends friends) {
-        this.save(friends);
+
     }
 }

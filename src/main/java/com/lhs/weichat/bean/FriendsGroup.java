@@ -1,20 +1,11 @@
 package com.lhs.weichat.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 /**
  * 好友分组
  * 
  * @author chenbiao
  *
  */
-@Entity
-@Table(name = "FriendsGroup")
 public class FriendsGroup {
 
 	private int id;
@@ -22,14 +13,11 @@ public class FriendsGroup {
 	/**
 	 * 谁的好友组
 	 */
-	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
-	@JoinColumn(name = "userId", updatable = false)
 	private User user;
 
 	/**
 	 * 分组名称
 	 */
-	@Column(length = 20)
 	private String name;
 
 	public User getUser() {

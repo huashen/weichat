@@ -1,15 +1,5 @@
 package com.lhs.weichat.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-@Entity
-@Table(name = "Friends")
 public class Friends {
 
 	/**
@@ -30,48 +20,37 @@ public class Friends {
 	 */
 	public final static int VISIBLE_INVISIBLE_VISIBLE = 2;
 
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-	@JoinColumn(name = "userId", updatable = false)
 	private User user;
 
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
-	@JoinColumn(name = "friendId", updatable = false)
 	private User friend;
 
 	/**
 	 * 备注名称
 	 */
-	@Column(length = 15)
 	private String remarkName;
 
 	/**
 	 * 是否被屏蔽消息
 	 */
-	@Column
 	private boolean shield;
 	/**
 	 * 该朋友所在的组
 	 */
-	@ManyToOne(fetch = FetchType.LAZY, targetEntity = FriendsGroup.class)
-	@JoinColumn(name = "friendsGroupId", updatable = false)
 	private FriendsGroup friendsGroup;
 
 	/**
 	 * 好友对自己的可见状态,在线对其隐身，隐身可见
 	 */
-	@Column
 	private int visible;
 
 	/**
 	 * 用户在线状态，非持久化字段
 	 */
-	@Transient
 	private int onlineStatus;
 
 	/**
 	 * 用户在线方式，非持久化字段
 	 */
-	@Transient
 	private int onlineType;
 
 	public int getId() {
