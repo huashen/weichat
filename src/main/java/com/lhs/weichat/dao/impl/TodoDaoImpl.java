@@ -14,7 +14,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/10/1
  */
-@Repository
+//@Repository
 public class TodoDaoImpl extends BaseDao implements ITodoDao {
 
     @Override

@@ -16,7 +16,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/9/28
  */
-@Service
+//@Service
 public class UserAuthTokenServiceImpl implements IUserAuthTokenService {
 
     @Autowired

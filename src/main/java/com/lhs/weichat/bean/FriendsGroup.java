@@ -15,7 +15,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "FriendsGroup")
-public class FriendsGroup extends BaseEntity {
+public class FriendsGroup {
+
+	private int id;
 
 	/**
 	 * 谁的好友组
@@ -38,6 +40,14 @@ public class FriendsGroup extends BaseEntity {
 	 * 排列顺序
 	 */
 	private int position;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

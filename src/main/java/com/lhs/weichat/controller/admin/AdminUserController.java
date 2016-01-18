@@ -2,6 +2,7 @@ package com.lhs.weichat.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.lhs.weichat.bean.*;
+import com.lhs.weichat.controller.base.BaseController;
 import com.lhs.weichat.core.Session;
 import com.lhs.weichat.core.SessionManager;
 import com.lhs.weichat.core.bean.Msg;
@@ -9,6 +10,7 @@ import com.lhs.weichat.core.bean.MsgHelper;
 import com.lhs.weichat.service.*;
 import com.lhs.weichat.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +30,8 @@ import java.util.Set;
  * @since 15/9/24
  */
 @Controller
-@RequestMapping("/user")
-public class AdminUserController {
+@RequestMapping("/admin/user")
+public class AdminUserController extends BaseController {
 
     @Autowired
     private IUserService userService;
@@ -56,11 +58,12 @@ public class AdminUserController {
     private SessionManager sessionManager;
 
     @RequestMapping(value = "/register.json", method = RequestMethod.POST)
+    @ResponseBody
     public Result register(HttpServletRequest request,
                            @RequestParam(value = "name", defaultValue = "") String name,
                            @RequestParam(value = "account", defaultValue = "") String account,
                            @RequestParam(value = "password", defaultValue = "") String password,
-                           @RequestParam(value = "birthday") long brithday,
+                           @RequestParam(value = "birthday") @DateTimeFormat(pattern="yyyy-MM-dd") Date brithday,
                            @RequestParam(value = "gender", defaultValue = "1") int gender,
                            @RequestParam(value = "signature", defaultValue = "") String signature,
                            @RequestParam(value = "avatarId", defaultValue = "") int avatarId) {
@@ -98,13 +101,13 @@ public class AdminUserController {
                 a = attachemntService.getAttachmentById(avatarId);
             }
             User newUser = new User();
-            newUser.setName(name);
+            newUser.setNickName(name);
             newUser.setAccount(account);
             newUser.setPassword(password);
-            newUser.setBirthday(new Date(brithday));
+            newUser.setBirthday(brithday);
             newUser.setSignature(signature);
             newUser.setGender(gender);
-            newUser.setAvatar(a);
+            newUser.setAvatarId(a.getId());
             u = userService.addUser(newUser);
         }
 
@@ -238,8 +241,8 @@ public class AdminUserController {
                 for (UserAuthToken u : uts) {
                     session = SessionManager.get(friendsId + u.getToken());
                     if (session != null) {
-                        Msg.Message msg = MsgHelper.newTodoMessage(todo.getId(), "用户[" + user.getName() + "]请求添加您为好友！",Todo.TODO_TYPE_ADD_FRIENDS, requestMsg);
-                        session.send(msg);
+//                        Msg.Message msg = MsgHelper.newTodoMessage(todo.getId(), "用户[" + user.getName() + "]请求添加您为好友！",Todo.TODO_TYPE_ADD_FRIENDS, requestMsg);
+//                        session.send(msg);
                         //成功发送即为完成
                         todo.setComplete(true);
                         todoService.updateTodo(todo);

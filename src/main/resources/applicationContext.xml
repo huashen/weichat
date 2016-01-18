@@ -16,7 +16,7 @@
 	         http://www.springframework.org/schema/task
 	         http://www.springframework.org/schema/task/spring-task-4.1.xsd">
 
-<!--扫描注解 -->
+    <!--扫描注解 -->
     <context:component-scan base-package="com.lhs.weichat">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -38,6 +38,81 @@
             </set>
         </property>
     </bean>
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${jdbc.initialPoolSize}" />
+        <property name="minIdle" value="${jdbc.minPoolSize}" />
+        <property name="maxActive" value="${jdbc.maxPoolSize}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 显式指定Mapper文件位置 -->
+        <property name="configLocation"  value="classpath:/SqlMapConfig.xml"/>
+        <!-- 通配符指定Mapper.xml -->
+        <property name="mapperLocations" value="classpath:/mybatis/**/*Mapper.xml" />
+        <!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+        <property name="typeAliasesPackage" value="com.lhs.weichat.bean" />
+    </bean>
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- 定义事务规则 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*"/>
+            <!-- save这里设置了事务回滚的异常，不用抛RuntimeException异常，抛出SQLException也可以回滚 -->
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <!--no-rollback-for="SQLException" -->
+            <tx:method name="update*"/>
+            <tx:method name="modify*"/>
+            <tx:method name="edit*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="remove*"/>
+            <tx:method name="repair"/>
+            <tx:method name="get*" propagation="REQUIRED"/>
+            <tx:method name="find*" propagation="SUPPORTS"/>
+            <tx:method name="load*" propagation="SUPPORTS"/>
+            <tx:method name="search*" propagation="SUPPORTS"/>
+            <tx:method name="*" propagation="SUPPORTS"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 定义事务入口 -->
+    <aop:config>
+        <aop:pointcut id="txPointcut"
+                      expression="execution(* com.lhs.weichat..service..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+
 
     <!-- 登陆时验证码的配置 -->
     <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
@@ -75,115 +150,5 @@
             </bean>
         </property>
     </bean>
-
-
-    <!-- 配置事务管理器 -->
-    <bean id="transactionManager"
-          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-        <!-- <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration"
-            /> -->
-
-    </bean>
-
-    <context:property-placeholder location="classpath:jdbc.properties"/>
-
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
-          destroy-method="close">
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="driverClassName" value="${jdbc.driverClassName}"/>
-        <!--<property name="filters" value="${jdbc.filters}" />-->
-
-        <!--		<property name="maxActive" value="${maxActive}" />
-                <property name="initialSize" value="${initialSize}" />
-                <property name="maxWait" value="${maxWait}" />
-                <property name="minIdle" value="${minIdle}" />
-
-                <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
-                <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
-
-                <property name="validationQuery" value="${validationQuery}" />
-                <property name="testWhileIdle" value="${testWhileIdle}" />
-                <property name="testOnBorrow" value="${testOnBorrow}" />
-                <property name="testOnReturn" value="${testOnReturn}" />
-                <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
-                <property name="removeAbandoned" value="${removeAbandoned}" /> &lt;!&ndash; 打开removeAbandoned功能 &ndash;&gt;
-                <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" /> &lt;!&ndash; 1800秒，也就是30分钟 &ndash;&gt;
-                <property name="logAbandoned" value="${logAbandoned}" /> &lt;!&ndash; 关闭abanded连接时输出错误日志 &ndash;&gt;-->
-    </bean>
-
-
-    <bean id="sessionFactory"
-          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan">
-            <list>
-                <value>com.lhs.weichat.bean</value>
-            </list>
-        </property>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="javax.persistence.validation.mode">none</prop>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                <prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>
-                <prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>
-                <prop key="hibernate.max_fetch_depth">${hibernate.max_fetch_depth}</prop>
-                <prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
-                <!--				&lt;!&ndash;<prop key="hibernate.bytecode.use_reflection_optimizer"></prop>&ndash;&gt;
-                                <prop key="hibernate.enable_lazy_load_no_trans">${hibernate.enable_lazy_load_no_trans}</prop>
-                                &lt;!&ndash;<prop key="connection.provider_class">${connection.provider_class}</prop>&ndash;&gt;
-                                &lt;!&ndash; 开启查询缓存 &ndash;&gt;
-                                <prop key="hibernate.cache.use_second_level_cache">true</prop>
-                                <prop key="hibernate.cache.region.factory_class">com.googlecode.hibernate.memcached.MemcachedRegionFactory
-                                </prop>
-                                <prop key="hibernate.memcached.operationTimeout">6000</prop>
-                                <prop key="hibernate.memcached.servers">localhost:11211</prop>
-                                &lt;!&ndash; 二级缓存区域名的前缀 &ndash;&gt;
-                                <prop key="hibernate.cache.region_prefix">quality.cache.ehcache</prop>
-                                <prop key="hibernate.cache.use_structured_entries">true</prop>
-                                <prop key="hibernate.cache.use_query_cache">true</prop>-->
-            </props>
-        </property>
-
-        <!--		<property name="mappingResources">
-                <list>
-                    <value>sqlmap/User.hbm.xml</value>
-                    <value>sqlmap/Attachment.hbm.xml</value>
-                </list>
-                </property>-->
-    </bean>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <!-- 定义事务规则 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="add*"/>
-            <!-- save这里设置了事务回滚的异常，不用抛RuntimeException异常，抛出SQLException也可以回滚 -->
-            <tx:method name="save*" propagation="REQUIRED"/>
-            <!--no-rollback-for="SQLException" -->
-            <tx:method name="update*"/>
-            <tx:method name="modify*"/>
-            <tx:method name="edit*"/>
-            <tx:method name="delete*"/>
-            <tx:method name="remove*"/>
-            <tx:method name="repair"/>
-            <tx:method name="get*" propagation="REQUIRED"/>
-            <tx:method name="find*" propagation="SUPPORTS"/>
-            <tx:method name="load*" propagation="SUPPORTS"/>
-            <tx:method name="search*" propagation="SUPPORTS"/>
-            <tx:method name="*" propagation="SUPPORTS"/>
-        </tx:attributes>
-    </tx:advice>
-    <!-- 定义事务入口 -->
-    <aop:config>
-        <aop:pointcut id="txPointcut"
-                      expression="execution(* com.lhs.weichat..service..*.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
-    </aop:config>
-
 
 </beans>

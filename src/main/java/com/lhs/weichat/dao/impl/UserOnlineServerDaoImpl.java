@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author longhuashen
  * @since 15/10/6
  */
-@Repository
+//@Repository
 public class UserOnlineServerDaoImpl extends BaseDao implements IUserOnlineServerDao {
 
     @Override

@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "GroupClass")
-public class GroupClass extends BaseEntity {
+public class GroupClass {
 	public final static int TYPE_BIG_CLASS = 0;
 	public final static int TYPE_SMALL_CLASS = 1;
 

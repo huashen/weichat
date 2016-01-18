@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> search(String condition) {
-        return userDao.search(condition);
+        return null;
     }
 
     @Override

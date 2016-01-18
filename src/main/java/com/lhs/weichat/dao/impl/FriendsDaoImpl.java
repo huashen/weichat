@@ -15,7 +15,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/5
  */
-@Repository
+//@Repository
 public class FriendsDaoImpl extends BaseDao implements IFriendsDao {
 
     @Override

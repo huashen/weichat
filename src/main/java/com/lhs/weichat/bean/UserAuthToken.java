@@ -19,7 +19,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "UserAuthToken")
-public class UserAuthToken extends BaseEntity {
+public class UserAuthToken {
+
+	private int id;
+
 	/**
 	 * token所属用户
 	 */
@@ -58,6 +61,14 @@ public class UserAuthToken extends BaseEntity {
 	 */
 	@Column(length = 50, nullable = false)
 	private String clientId;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getClientId() {
 		return clientId;

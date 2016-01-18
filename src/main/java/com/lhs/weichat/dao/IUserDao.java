@@ -25,13 +25,13 @@ public interface IUserDao {
      * @return
      */
     User getUserByAccount(String account);
-
-    /**
-     * 查找用户
-     * @param condition
-     * @return
-     */
-    List<User> search(String condition);
+//
+//    /**
+//     * 查找用户
+//     * @param condition
+//     * @return
+//     */
+//    List<User> search(String condition);
 
     /**
      * 根据id获取用户

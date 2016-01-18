@@ -14,7 +14,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/10/3
  */
-@Service
+//@Service
 public class ChatServerServiceImpl implements IChatServerService {
 
     @Autowired

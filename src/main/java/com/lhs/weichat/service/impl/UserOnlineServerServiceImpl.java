@@ -19,7 +19,7 @@ import java.util.Set;
  * @author longhuashen
  * @since 15/10/6
  */
-@Service
+//@Service
 public class UserOnlineServerServiceImpl implements IUserOnlineServerService {
 
     @Autowired
@@ -45,7 +45,7 @@ public class UserOnlineServerServiceImpl implements IUserOnlineServerService {
             for (UserAuthToken userAuthToken : userAuthTokens) {
                 UserOnlineServer userOnlineServer = userOnlineServerDao.getOnlineServerByToken(userAuthToken.getId());
                 if (userOnlineServer != null) {
-                    set.add(userOnlineServer.getChatServer());
+                    //set.add(userOnlineServer.getChatServer());
                 }
             }
         }

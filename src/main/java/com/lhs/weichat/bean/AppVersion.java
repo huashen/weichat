@@ -1,19 +1,15 @@
 package com.lhs.weichat.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+public class AppVersion implements Serializable {
 
-@Entity
-@Table(name = "AppVersion")
-public class AppVersion extends BaseEntity implements Serializable {
+    private int id;
 
-    @Column
     private int versionCode;
     @Column(length = 250)
     private String downloadUrl;

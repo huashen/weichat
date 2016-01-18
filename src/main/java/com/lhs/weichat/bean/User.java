@@ -2,96 +2,90 @@ package com.lhs.weichat.bean;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-@Entity
-@Table(name = "User")
-public class User extends BaseEntity {
+public class User {
 
 	public static int GENDER_MALE = 0;// 男性
 	public static int GENDER_FEMALE = 1;// 女性
 	public static int GENDER_UNKNOWN = 2;// 未知
 
 	/**
+	 * 用户id
+	 */
+	private int id;
+
+	/**
 	 * 账号
 	 */
-	@Column(length = 30)
 	private String account;
+
 	/**
 	 * 密码
 	 */
-	@Column(length = 50)
 	private String password;
 
 	/**
 	 * 昵称
 	 */
-	@Column(length = 30)
-	private String name;
+	private String nickName;
 
 	/**
 	 * 头像路径
 	 */
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = Attachment.class)
-	@JoinColumn(name = "avatarId", updatable = false)
-	private Attachment avatar;
+	private int avatarId;
 
 	/**
 	 * 生日
 	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column
 	private Date birthday;
 
 	/**
 	 * 个性签名
 	 */
-	@Column(length = 200)
 	private String signature;
 
 	/**
 	 * 个人性别，0男1女2未知
 	 */
-	@Column(nullable = false, columnDefinition = "INT default 0")
 	private int gender;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getAccount() {
 		return account;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public void setAccount(String account) {
 		this.account = account;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public Attachment getAvatar() {
-		return avatar;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
-	public void setAvatar(Attachment avatar) {
-		this.avatar = avatar;
+	public int getAvatarId() {
+		return avatarId;
+	}
+
+	public void setAvatarId(int avatarId) {
+		this.avatarId = avatarId;
 	}
 
 	public Date getBirthday() {
@@ -117,5 +111,4 @@ public class User extends BaseEntity {
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-
 }

@@ -15,7 +15,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/9/28
  */
-@Repository
+//@Repository
 public class UserAuthTokenDaoImpl extends BaseDao implements IUserAuthTokenDao {
 
     @Override

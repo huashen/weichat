@@ -180,20 +180,20 @@ public class MsgHelper {
                 Msg.Friends.Builder fb = Msg.Friends.newBuilder();
 
                 fb.setAge(StringUtils.getAge(f.getFriend().getBirthday()));
-                if (f.getFriend().getAvatar() != null) {
-                    fb.setAvatarPath(f.getFriend().getAvatar().getGroupName() + "#" + f.getFriend().getAvatar().getPath());
-                } else {
-                    fb.setAvatarPath("");
-                }
-                fb.setId(f.getId());
-                String name = f.getFriend().getName();
+//                if (f.getFriend().getAvatar() != null) {
+//                    fb.setAvatarPath(f.getFriend().getAvatar().getGroupName() + "#" + f.getFriend().getAvatar().getPath());
+//                } else {
+//                    fb.setAvatarPath("");
+//                }
+//                fb.setId(f.getId());
+//                String name = f.getFriend().getName();
 
-                fb.setName(name);
-                if (f.getRemarkName() == null || f.getRemarkName().isEmpty()) {
-                    fb.setRemarkName(name);
-                } else {
-                    fb.setRemarkName(f.getRemarkName());
-                }
+//                fb.setName(name);
+//                if (f.getRemarkName() == null || f.getRemarkName().isEmpty()) {
+//                    fb.setRemarkName(name);
+//                } else {
+//                    fb.setRemarkName(f.getRemarkName());
+//                }
 
                 boolean online = true;
                 if (f.getOnlineStatus() < UserOnlineServer.ONLINE_STATUS_INVISIBLE) {

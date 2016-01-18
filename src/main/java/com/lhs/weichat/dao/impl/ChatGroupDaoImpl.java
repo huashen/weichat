@@ -16,7 +16,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/9
  */
-@Service
+//@Service
 public class ChatGroupDaoImpl extends BaseDao implements IChatGroupDao {
 
     private int maxAccount;

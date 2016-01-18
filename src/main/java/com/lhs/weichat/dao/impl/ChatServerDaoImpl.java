@@ -14,7 +14,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/10/3
  */
-@Repository
+//@Repository
 public class ChatServerDaoImpl extends BaseDao implements IChatServerDao {
 
     @Override

@@ -15,7 +15,7 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/9
  */
-@Service
+//@Service
 public class ChatGroupServiceImpl implements IChatGroupService {
 
     @Autowired

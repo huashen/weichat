@@ -14,7 +14,7 @@ import java.util.List;
  * @author longhuashen
  * @since 16/1/14
  */
-@Service
+//@Service
 public class FriendsGroupServiceImpl implements IFriendsGroupService {
 
     @Autowired

@@ -2,6 +2,7 @@ package com.lhs.service;
 
 import com.lhs.weichat.bean.Attachment;
 import com.lhs.weichat.service.IAttachmntService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,13 @@ public final class TestAttachmentService {
         Attachment.setSize(10000l);
         Attachment.setUserId(1);
         Attachment.setToken("testToken123");
-        Attachment.setCreateDate(new Date());
+        Attachment.setCreateTime(new Date());
         attachemntService.saveAttachment(Attachment);
+    }
+
+    @Test
+    public void testGetAttachmentById() {
+        Attachment attachment = attachemntService.getAttachmentById(1);
+        Assert.assertEquals(1, attachment.getId());
     }
 }

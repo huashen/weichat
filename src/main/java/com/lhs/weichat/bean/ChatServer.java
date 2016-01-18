@@ -6,7 +6,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ChatServer")
-public class ChatServer extends BaseEntity {
+public class ChatServer {
+
+	private int id;
 
 	@Column(length = 50)
 	private String ip;// ip地址
@@ -19,6 +21,14 @@ public class ChatServer extends BaseEntity {
 
 	@Column(length = 50)
 	private String name;//名称
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getIp() {
 		return ip;

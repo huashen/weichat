@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AttachmentMapper">
+    <sql id="weichat_attachment_column">
+        id,
+        name,
+        group_name,
+        path,
+        type,
+        size,
+        user_id,
+        token,
+        create_time
+    </sql>
+
+    <sql id="weichat_attachment_property">
+        #{id},
+        #{name},
+        #{groupName},
+        #{path},
+        #{type},
+        #{size},
+        #{userId},
+        #{token},
+        #{createTime}
+    </sql>
+
+    <resultMap type="Attachment" id="AttachmentResult">
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="avatarId" column="avatar_id"/>
+        <result property="birthday" column="birthday"/>
+        <result property="signature" column="signature"/>
+        <result property="gender" column="gender"/>
+    </resultMap>
+
+    <!-- 保存文件 -->
+    <insert id="saveAttachment" parameterType="Attachment" keyColumn="id" keyProperty="id">
+        INSERT INTO t_attachment(<include refid="weichat_attachment_column"/>) VALUE(<include refid="weichat_attachment_property"/>)
+    </insert>
+
+    <!-- 根据groupName和path查找文件 -->
+    <select id="getAttachmentByGroupNameAndPath" parameterType="Attachment" resultMap="AttachmentResult">
+        SELECT <include refid="weichat_attachment_column"/> FROM t_attachment WHERE group_name =#{groupName} and path =#{path}
+    </select>
+
+    <!-- 根据id查找文件 -->
+    <select id="getAttachmentById" parameterType="int" resultMap="AttachmentResult">
+        SELECT <include refid="weichat_attachment_column"/> FROM t_attachment WHERE id =#{id}
+    </select>
+</mapper>

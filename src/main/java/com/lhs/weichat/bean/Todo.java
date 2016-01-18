@@ -19,12 +19,15 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Todo")
-public class Todo extends BaseEntity {
+public class Todo {
 
 	public final static int TODO_TYPE_ADD_FRIENDS = 1;// 添加好友
 	public final static int TODO_TYPE_JOIN_GROUP = 2;// 别人申请加群请求
 	public final static int TODO_TYPE_ADD_CHAT_GROUP = 3;// 添加群
 	public final static int TODO_TYPE_ADD_DISCUSSATION = 4;// 添加讨论组
+
+	private int id;
+
 	/**
 	 * 用户id
 	 */
@@ -89,6 +92,14 @@ public class Todo extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
 	private Date handleDate;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public User getFrom() {
 		return from;

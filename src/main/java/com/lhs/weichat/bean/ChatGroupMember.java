@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ChatGroupMember")
-public class ChatGroupMember extends BaseEntity {
+public class ChatGroupMember {
 	@ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
 	@JoinColumn(name = "userId", updatable = false)
 	private User user;

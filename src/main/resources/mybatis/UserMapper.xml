@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+    <sql id="weichat_user_column">
+        id,
+        account,
+        password,
+        nick_name,
+        avatar_id,
+        birthday,
+        signature,
+        gender
+    </sql>
+
+    <sql id="weichat_user_property">
+        #{id},
+        #{account},
+        #{password},
+        #{nickName},
+        #{avatarId},
+        #{birthday},
+        #{signature},
+        #{gender}
+    </sql>
+
+    <resultMap type="User" id="UserResult">
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="avatarId" column="avatar_id"/>
+        <result property="birthday" column="birthday"/>
+        <result property="signature" column="signature"/>
+        <result property="gender" column="gender"/>
+    </resultMap>
+
+    <!-- 注册创建用户 -->
+    <insert id="createUser" parameterType="User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_user(<include refid="weichat_user_column"/>)
+        VALUE(<include refid="weichat_user_property"/>)
+    </insert>
+
+    <!-- 根据账户名查找用户 -->
+    <select id="getUserByAccount" parameterType="String" resultMap="UserResult">
+        SELECT <include refid="weichat_user_column"/> FROM t_user where account = #{value}
+    </select>
+
+    <!-- 根据id查找用户 -->
+    <select id="getUserById" parameterType="int" resultMap="UserResult">
+        SELECT <include refid="weichat_user_column"/> FROM t_user where id = #{value}
+    </select>
+</mapper>

@@ -36,13 +36,13 @@ public class SessionManager {
 
     private static final Logger logger = LoggerFactory.getLogger(SessionManager.class);
 
-    @Autowired
+//    @Autowired
     private IChatServerService chatServerService;
 
-    @Autowired
+//    @Autowired
     private IUserAuthTokenService userAuthTokenService;
 
-    @Autowired
+//    @Autowired
     private IUserOnlineServerService userOnlineServerService;
 
     private static Map<String, Session> sessionMap = new ConcurrentHashMap<>();

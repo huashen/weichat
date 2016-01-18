@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "DiscussionGroup")
-public class DiscussionGroup extends BaseEntity {
+public class DiscussionGroup {
 	/**
 	 * 讨论组名称
 	 */

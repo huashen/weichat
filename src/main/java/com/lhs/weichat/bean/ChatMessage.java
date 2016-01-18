@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "ChatMessage")
-public class ChatMessage extends BaseEntity {
+public class ChatMessage {
 	/**
 	 * 发送消息
 	 */
@@ -35,6 +35,9 @@ public class ChatMessage extends BaseEntity {
 	public final static int STATUS_SEND = 1;// 默认状态已发送
 	public final static int STATUS_RECEIVED = 2;// 已收到
 	public final static int STATUS_READ = 3;// 已阅读
+
+	private int id;
+
 	/**
 	 * 非持久化字段
 	 */
@@ -95,6 +98,14 @@ public class ChatMessage extends BaseEntity {
 	private int discussionGroupId;
 	// 是否需要转发，如果传入的是clinet则需要转发，如果是服务端则说明本就是转发消息不需要转发
 	private boolean transfer;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public boolean isTransfer() {
 		return transfer;

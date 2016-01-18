@@ -10,7 +10,13 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "Friends")
-public class Friends extends BaseEntity {
+public class Friends {
+
+	/**
+	 * id
+	 */
+	private int id;
+
 	/**
 	 * 正常状态
 	 */
@@ -67,6 +73,14 @@ public class Friends extends BaseEntity {
 	 */
 	@Transient
 	private int onlineType;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public FriendsGroup getFriendsGroup() {
 		return friendsGroup;

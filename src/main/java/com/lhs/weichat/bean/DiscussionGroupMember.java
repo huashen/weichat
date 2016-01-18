@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "DiscussionGroupMember")
-public class DiscussionGroupMember extends BaseEntity {
+public class DiscussionGroupMember {
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
 	@JoinColumn(name = "userId", updatable = false)
 	private User user;
