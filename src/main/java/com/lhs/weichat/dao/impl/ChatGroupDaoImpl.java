@@ -5,6 +5,7 @@ import com.lhs.weichat.bean.User;
 import com.lhs.weichat.dao.IChatGroupDao;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class ChatGroupDaoImpl extends GenericDaoImpl implements IChatGroupDao {
 
     @Override
     public ChatGroup addChatGroup(String name, User user) {
+        ChatGroup chatGroup = new ChatGroup();
+        chatGroup.setCreateBy(user);
+        chatGroup.setCreateDate(new Date());
+        chatGroup.setAccount((getMaxAccount() + 1) + "");
+
+
         return null;
     }
 

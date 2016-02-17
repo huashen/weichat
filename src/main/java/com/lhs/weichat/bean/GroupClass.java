@@ -1,52 +1,65 @@
 package com.lhs.weichat.bean;
 
 /**
- * 群类别实体
- * 
- * @author chenbiao
+ * GroupClass
  *
+ * @author longhuashen
+ * @since 16/2/15
  */
 public class GroupClass {
-	public final static int TYPE_BIG_CLASS = 0;
-	public final static int TYPE_SMALL_CLASS = 1;
 
-	/**
-	 * 分类名称
-	 */
-	private String name;
+    public final static int TYPE_BIG_CLASS = 0;
+    public final static int TYPE_SMALL_CLASS = 1;
 
-	/**
-	 * 分类类型
-	 */
-	private int type;
+    /**
+     * id
+     */
+    private int id;
 
-	/**
-	 * 所属大类
-	 */
-	private GroupClass bigClass;
+    /**
+     * 分类名称
+     */
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    /**
+     * 分类类型
+     */
+    private int type;
 
-	public int getType() {
-		return type;
-	}
+    /**
+     * 所属大类
+     */
+    private int parentId;
 
-	public GroupClass getBigClass() {
-		return bigClass;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setType(int type) {
-		this.type = type;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setBigClass(GroupClass bigClass) {
-		this.bigClass = bigClass;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
 }

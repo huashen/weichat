@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GroupClassMapper">
+    <sql id="group_class_column">
+        id,
+        name,
+        type,
+        parent_id
+    </sql>
+
+    <sql id="group_class_property">
+        #{id},
+        #{name},
+        #{type},
+        #{parentId}
+    </sql>
+
+    <resultMap type="GroupClass" id="GroupClassResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="parentId" column="parent_id"/>
+    </resultMap>
+</mapper>
