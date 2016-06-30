@@ -265,6 +265,14 @@
         </dependency>
     </dependencies>
 
+    <developers>
+        <developer>
+            <id>sky</id>
+            <name>sky</name>
+            <email>huashen361@163.com</email>
+        </developer>
+    </developers>
+
 
     <build>
         <finalName>weichat</finalName>
