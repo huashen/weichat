@@ -1,7 +1,7 @@
 package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.Attachment;
-import com.lhs.weichat.dao.IAttachmentDao;
+import com.lhs.weichat.dao.AttachmentDao;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @since 15/9/24
  */
 @Repository
-public class AttachmentDaoImpl extends GenericDaoImpl implements IAttachmentDao {
+public class AttachmentDaoImpl extends GenericDaoImpl implements AttachmentDao {
 
     public Attachment saveAttachment(Attachment attachment) {
          this.insert("AttachmentMapper.saveAttachment", attachment);

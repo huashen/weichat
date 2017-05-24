@@ -1,8 +1,8 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.IUserDao;
-import com.lhs.weichat.service.IUserService;
+import com.lhs.weichat.dao.UserDao;
+import com.lhs.weichat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +15,10 @@ import java.util.List;
  * @since 15/9/24
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    private IUserDao userDao;
+    private UserDao userDao;
 
     @Override
     public User addUser(User user) {

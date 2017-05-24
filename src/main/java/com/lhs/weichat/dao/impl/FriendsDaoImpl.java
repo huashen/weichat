@@ -2,7 +2,7 @@ package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.Friends;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.IFriendsDao;
+import com.lhs.weichat.dao.FriendsDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 15/11/5
  */
 @Repository
-public class FriendsDaoImpl extends GenericDaoImpl implements IFriendsDao {
+public class FriendsDaoImpl extends GenericDaoImpl implements FriendsDao {
 
     @Override
     public List<Friends> getFriendsByUserId(int userId) {

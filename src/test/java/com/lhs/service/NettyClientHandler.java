@@ -20,21 +20,21 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Msg.Message>
 
     private static Logger logger = LoggerFactory.getLogger(NettyClientHandler.class);
 
-    @Override
-    protected void messageReceived(ChannelHandlerContext ctx, Msg.Message msg) throws Exception {
-        InetSocketAddress inetSocketAddress = (InetSocketAddress) ctx.channel().remoteAddress();
-
-        String ip = inetSocketAddress.getAddress().getHostAddress();
-        int port = inetSocketAddress.getPort();
-        logger.info("receive msg from server port:" + port);
-        logger.info("msgType:" + msg.getMessageType());
-        System.out.println("msgType:" + msg.getMessageType());
-
-        if (msg.getMessageType().equals(Msg.MessageType.CHAT_MESSAGE)) {
-            System.out.println("---------聊天信息-----------");
-            System.out.println("content:" + msg.getChatMessage().getContent());
-        }
-    }
+//    @Override
+//    protected void messageReceived(ChannelHandlerContext ctx, Msg.Message msg) throws Exception {
+//        InetSocketAddress inetSocketAddress = (InetSocketAddress) ctx.channel().remoteAddress();
+//
+//        String ip = inetSocketAddress.getAddress().getHostAddress();
+//        int port = inetSocketAddress.getPort();
+//        logger.info("receive msg from server port:" + port);
+//        logger.info("msgType:" + msg.getMessageType());
+//        System.out.println("msgType:" + msg.getMessageType());
+//
+//        if (msg.getMessageType().equals(Msg.MessageType.CHAT_MESSAGE)) {
+//            System.out.println("---------聊天信息-----------");
+//            System.out.println("content:" + msg.getChatMessage().getContent());
+//        }
+//    }
 
     private void sendPing(ChannelHandlerContext context) {
         Msg.Message ping = MsgHelper.newPingMessage(Msg.MessageType.CLIENT_PING, "1");
@@ -55,5 +55,10 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Msg.Message>
                     break;
             }
         }
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, Msg.Message msg) throws Exception {
+
     }
 }

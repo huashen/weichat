@@ -1,8 +1,8 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.ChatServer;
-import com.lhs.weichat.dao.IChatServerDao;
-import com.lhs.weichat.service.IChatServerService;
+import com.lhs.weichat.dao.ChatServerDao;
+import com.lhs.weichat.service.ChatServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +14,11 @@ import java.util.List;
  * @author longhuashen
  * @since 15/10/3
  */
-//@Service
-public class ChatServerServiceImpl implements IChatServerService {
+@Service
+public class ChatServerServiceImpl implements ChatServerService {
 
     @Autowired
-    private IChatServerDao chatServerDao;
+    private ChatServerDao chatServerDao;
 
     @Override
     public List<ChatServer> getOnlineServer() {
@@ -31,21 +31,21 @@ public class ChatServerServiceImpl implements IChatServerService {
     }
 
     @Override
-    public void regist(String ip, int port, String name) {
-        ChatServer server = chatServerDao.getChatServerByIpAndPort(ip, port);
-        if(server != null && server.getId() > 0) {
-            if(!server.isOnline()) {
-                server.setOnLine(true);
-                chatServerDao.update(server);
-            }
-        }else {
-            server = new ChatServer();
-            server.setIp(ip);
-            server.setPort(port);
-            server.setName(name);
-            server.setOnLine(true);
-            chatServerDao.insert(server);
-        }
+    public void register(String ip, int port, String name) {
+//        ChatServer server = chatServerDao.getChatServerByIpAndPort(ip, port);
+//        if(server != null && server.getId() > 0) {
+//            if(!server.isOnline())
+//                server.setOnLine(true);
+//                chatServerDao.update(server);
+//            }
+//        }else {
+//            server = new ChatServer();
+//            server.setIp(ip);
+//            server.setPort(port);
+//            server.setName(name);
+//            server.setOnLine(true);
+//            chatServerDao.insert(server);
+//        }
     }
 
     @Override

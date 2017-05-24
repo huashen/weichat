@@ -1,7 +1,7 @@
 package com.lhs.service;
 
 import com.lhs.weichat.bean.Attachment;
-import com.lhs.weichat.service.IAttachmntService;
+import com.lhs.weichat.service.AttachmentService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import java.util.Date;
 public final class TestAttachmentService {
 
     @Autowired
-    private IAttachmntService attachemntService;
+    private AttachmentService attachemntService;
 
     @Test
     public void testSave() {

@@ -1,6 +1,6 @@
 package com.lhs.weichat.dao.impl;
 
-import com.lhs.weichat.dao.IGenericDao;
+import com.lhs.weichat.dao.GenericDao;
 import org.apache.ibatis.session.SqlSession;
 
 import javax.annotation.Resource;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author longhuashen
  * @since 16/1/15
  */
-public class GenericDaoImpl implements IGenericDao {
+public class GenericDaoImpl implements GenericDao {
 
     private SqlSession sqlSession;
 

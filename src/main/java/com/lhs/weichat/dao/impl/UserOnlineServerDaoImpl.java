@@ -1,7 +1,7 @@
 package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.UserOnlineServer;
-import com.lhs.weichat.dao.IUserOnlineServerDao;
+import com.lhs.weichat.dao.UserOnlineServerDao;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @since 15/10/6
  */
 @Repository
-public class UserOnlineServerDaoImpl extends GenericDaoImpl implements IUserOnlineServerDao {
+public class UserOnlineServerDaoImpl extends GenericDaoImpl implements UserOnlineServerDao {
 
     @Override
     public UserOnlineServer getOnlineServerByToken(int userId) {

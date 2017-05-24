@@ -2,6 +2,7 @@ package com.lhs.service;
 
 import com.lhs.weichat.core.Constants;
 import com.lhs.weichat.core.bean.Msg;
+import com.lhs.weichat.core.bean.MsgHelper;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -63,9 +64,9 @@ public class NettyClientBootstrap {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        Constants.setClientId("001");
-        NettyClientBootstrap bootstrap = new NettyClientBootstrap("localhost", 8888);
-
+//        Constants.setClientId("001");
+//        NettyClientBootstrap bootstrap = new NettyClientBootstrap("localhost", 8888);
+//
 //        Msg.ClientLoginMessage loginMessage = Msg.ClientLoginMessage.newBuilder().setToken("xxx").setUserId(1).build();
 //
 //        Msg.Message loginMsg = Msg.Message.newBuilder()
@@ -74,5 +75,8 @@ public class NettyClientBootstrap {
 //                .build();
 //
 //        bootstrap.socketChannel.writeAndFlush(loginMsg);
+
+        Msg.Message rtMessage = MsgHelper.newResultMessage(
+                Msg.MessageType.LOGIN_ERROR, "用户认证失败!");
     }
 }

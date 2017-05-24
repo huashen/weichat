@@ -1,8 +1,8 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.Attachment;
-import com.lhs.weichat.dao.IAttachmentDao;
-import com.lhs.weichat.service.IAttachmntService;
+import com.lhs.weichat.dao.AttachmentDao;
+import com.lhs.weichat.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
  * @since 15/9/24
  */
 @Service
-public class AttachmentServiceImpl implements IAttachmntService {
+public class AttachmentServiceImpl implements AttachmentService {
 
     @Autowired
-    private IAttachmentDao attachmentDao;
+    private AttachmentDao attachmentDao;
 
     @Override
     public Attachment getAttachmentById(int id) {

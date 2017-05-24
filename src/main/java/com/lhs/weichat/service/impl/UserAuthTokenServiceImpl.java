@@ -2,8 +2,8 @@ package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.User;
 import com.lhs.weichat.bean.UserAuthToken;
-import com.lhs.weichat.dao.IUserAuthTokenDao;
-import com.lhs.weichat.service.IUserAuthTokenService;
+import com.lhs.weichat.dao.UserAuthTokenDao;
+import com.lhs.weichat.service.UserAuthTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import java.util.List;
  * @author longhuashen
  * @since 15/9/28
  */
-//@Service
-public class UserAuthTokenServiceImpl implements IUserAuthTokenService {
+@Service
+public class UserAuthTokenServiceImpl implements UserAuthTokenService {
 
     @Autowired
-    private IUserAuthTokenDao userAuthTokenDao;
+    private UserAuthTokenDao userAuthTokenDao;
 
     @Override
     public void save(User user, String clientId, String clientType, String token) {

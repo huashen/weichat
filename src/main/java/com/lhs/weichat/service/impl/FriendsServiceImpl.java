@@ -3,8 +3,8 @@ package com.lhs.weichat.service.impl;
 import com.lhs.weichat.bean.Friends;
 import com.lhs.weichat.bean.FriendsGroup;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.IFriendsDao;
-import com.lhs.weichat.service.IFriendsService;
+import com.lhs.weichat.dao.FriendsDao;
+import com.lhs.weichat.service.FriendsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +16,11 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/5
  */
-//@Service
-public class FriendsServiceImpl implements IFriendsService {
+@Service
+public class FriendsServiceImpl implements FriendsService {
 
     @Autowired
-    private IFriendsDao friendsDao;
+    private FriendsDao friendsDao;
 
     @Override
     public List<Friends> getFriendsByUserId(int userId) {

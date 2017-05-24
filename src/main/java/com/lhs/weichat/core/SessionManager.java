@@ -6,9 +6,9 @@ import com.lhs.weichat.bean.User;
 import com.lhs.weichat.bean.UserAuthToken;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.bean.MsgHelper;
-import com.lhs.weichat.service.IChatServerService;
-import com.lhs.weichat.service.IUserAuthTokenService;
-import com.lhs.weichat.service.IUserOnlineServerService;
+import com.lhs.weichat.service.ChatServerService;
+import com.lhs.weichat.service.UserAuthTokenService;
+import com.lhs.weichat.service.UserOnlineServerService;
 import com.lhs.weichat.utils.PropertyUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -36,14 +36,14 @@ public class SessionManager {
 
     private static final Logger logger = LoggerFactory.getLogger(SessionManager.class);
 
-//    @Autowired
-    private IChatServerService chatServerService;
+    @Autowired
+    private ChatServerService chatServerService;
 
-//    @Autowired
-    private IUserAuthTokenService userAuthTokenService;
+    @Autowired
+    private UserAuthTokenService userAuthTokenService;
 
-//    @Autowired
-    private IUserOnlineServerService userOnlineServerService;
+    @Autowired
+    private UserOnlineServerService userOnlineServerService;
 
     private static Map<String, Session> sessionMap = new ConcurrentHashMap<>();
 

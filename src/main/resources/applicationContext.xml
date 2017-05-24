@@ -39,6 +39,15 @@
         </property>
     </bean>
 
+    <!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
+    <bean id="propertyConfigurer" class="com.lhs.weichat.utils.PropertyUtils">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <context:property-placeholder location="classpath:jdbc.properties"/>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -112,43 +121,5 @@
                       expression="execution(* com.lhs.weichat..service..*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
-
-
-    <!-- 登陆时验证码的配置 -->
-    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
-        <property name="config">
-            <bean class="com.google.code.kaptcha.util.Config">
-                <!--通过构造函数注入属性值 -->
-                <constructor-arg type="java.util.Properties">
-                    <props>
-                        <!-- 验证码宽度 -->
-                        <prop key="kaptcha.image.width">150</prop>
-                        <!-- 验证码高度 -->
-                        <prop key="kaptcha.image.height">60</prop>
-                        <!-- 生成验证码内容范围 -->
-                        <prop key="kaptcha.textproducer.char.string">abcde2345678gfynmnpwx</prop>
-                        <!-- 验证码个数 -->
-                        <prop key="kaptcha.textproducer.char.length">5</prop>
-                        <!-- 是否有边框 -->
-                        <prop key="kaptcha.border">no</prop>
-                        <!-- 验证码字体颜色 -->
-                        <prop key="kaptcha.textproducer.font.color">red</prop>
-                        <!-- 验证码字体大小 -->
-                        <prop key="kaptcha.textproducer.font.size">35</prop>
-                        <!-- 验证码所属字体样式 -->
-                        <prop key="kaptcha.textproducer.font.names">Arial, Courier</prop>
-                        <prop key="kaptcha.background.clear.from">white</prop>
-                        <prop key="kaptcha.background.clear.to">white</prop>
-                        <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.ShadowGimpy</prop>
-                        <prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
-                        <!-- 干扰线颜色 -->
-                        <prop key="kaptcha.noise.color">red</prop>
-                        <!-- 验证码文本字符间距 -->
-                        <prop key="kaptcha.textproducer.char.space">4</prop>
-                    </props>
-                </constructor-arg>
-            </bean>
-        </property>
-    </bean>
 
 </beans>

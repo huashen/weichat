@@ -2,7 +2,7 @@ package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.User;
 import com.lhs.weichat.bean.UserAuthToken;
-import com.lhs.weichat.dao.IUserAuthTokenDao;
+import com.lhs.weichat.dao.UserAuthTokenDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 15/9/28
  */
 @Repository
-public class UserAuthTokenDaoImpl extends GenericDaoImpl implements IUserAuthTokenDao {
+public class UserAuthTokenDaoImpl extends GenericDaoImpl implements UserAuthTokenDao {
 
     @Override
     public UserAuthToken getUserAuthTokenByUserIdAndToken(int userId, String token) {

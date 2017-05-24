@@ -2,7 +2,7 @@ package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.ChatGroup;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.IChatGroupDao;
+import com.lhs.weichat.dao.ChatGroupDao;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -15,7 +15,7 @@ import java.util.List;
  * @since 15/11/9
  */
 @Service
-public class ChatGroupDaoImpl extends GenericDaoImpl implements IChatGroupDao {
+public class ChatGroupDaoImpl extends GenericDaoImpl implements ChatGroupDao {
 
     private int maxAccount;
 

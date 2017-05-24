@@ -1,7 +1,7 @@
 package com.lhs.service;
 
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.service.IUserService;
+import com.lhs.weichat.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import java.util.Date;
 public final class TestUserService {
 
     @Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @Test
     public void testAddUser() {

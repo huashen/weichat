@@ -3,9 +3,9 @@ package com.lhs.weichat.service.impl;
 import com.lhs.weichat.bean.ChatServer;
 import com.lhs.weichat.bean.UserAuthToken;
 import com.lhs.weichat.bean.UserOnlineServer;
-import com.lhs.weichat.dao.IUserAuthTokenDao;
-import com.lhs.weichat.dao.IUserOnlineServerDao;
-import com.lhs.weichat.service.IUserOnlineServerService;
+import com.lhs.weichat.dao.UserAuthTokenDao;
+import com.lhs.weichat.dao.UserOnlineServerDao;
+import com.lhs.weichat.service.UserOnlineServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +19,14 @@ import java.util.Set;
  * @author longhuashen
  * @since 15/10/6
  */
-//@Service
-public class UserOnlineServerServiceImpl implements IUserOnlineServerService {
+@Service
+public class UserOnlineServerServiceImpl implements UserOnlineServerService {
 
     @Autowired
-    private IUserAuthTokenDao userAuthTokenDao;
+    private UserAuthTokenDao userAuthTokenDao;
 
     @Autowired
-    private IUserOnlineServerDao userOnlineServerDao;
+    private UserOnlineServerDao userOnlineServerDao;
 
     @Override
     public ChatServer getOnlineServer(int userId, String token) {

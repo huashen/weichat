@@ -1,7 +1,7 @@
 package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.IUserDao;
+import com.lhs.weichat.dao.UserDao;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @since 15/9/24
  */
 @Repository
-public class UserDaoImpl extends GenericDaoImpl implements IUserDao {
+public class UserDaoImpl extends GenericDaoImpl implements UserDao {
 
     @Override
     public User addUser(User user) {

@@ -1,7 +1,7 @@
 package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.Todo;
-import com.lhs.weichat.dao.ITodoDao;
+import com.lhs.weichat.dao.TodoDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @since 15/10/1
  */
 @Repository
-public class TodoDaoImpl extends GenericDaoImpl implements ITodoDao {
+public class TodoDaoImpl extends GenericDaoImpl implements TodoDao {
 
     @Override
     public Todo saveTodo(Todo todo) {

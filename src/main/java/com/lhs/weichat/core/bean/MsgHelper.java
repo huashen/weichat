@@ -22,9 +22,11 @@ public class MsgHelper {
      */
     public static Msg.Message newResultMessage(Msg.MessageType type, String message) {
         Msg.ResultMessage.Builder builder = Msg.ResultMessage.newBuilder();
-        Msg.ResultMessage.Builder rtMessage = builder.setMessage(message);
+        Msg.ResultMessage rtMessage = builder.setMessage(message)
+                .setMessageType(type).build();
         Msg.Message.Builder b = Msg.Message.newBuilder();
-        Msg.Message m = b.setResultMessage(rtMessage).setMessageType(type).build();
+        Msg.Message m = b.setResultMessage(rtMessage).setMessageType(type)
+                .build();
         return m;
     }
 

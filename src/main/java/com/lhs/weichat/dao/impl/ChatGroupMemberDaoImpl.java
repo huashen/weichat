@@ -2,7 +2,7 @@ package com.lhs.weichat.dao.impl;
 
 import com.lhs.weichat.bean.ChatGroup;
 import com.lhs.weichat.bean.ChatGroupMember;
-import com.lhs.weichat.dao.IChatGroupMemberDao;
+import com.lhs.weichat.dao.ChatGroupMemberDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @since 15/11/9
  */
 @Repository
-public class ChatGroupMemberDaoImpl extends GenericDaoImpl implements IChatGroupMemberDao {
+public class ChatGroupMemberDaoImpl extends GenericDaoImpl implements ChatGroupMemberDao {
 
     @Override
     public List<ChatGroup> getChatGroupByMember(int userId) {

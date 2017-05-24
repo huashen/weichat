@@ -1,8 +1,8 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.Todo;
-import com.lhs.weichat.dao.ITodoDao;
-import com.lhs.weichat.service.ITodoService;
+import com.lhs.weichat.dao.TodoDao;
+import com.lhs.weichat.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +15,11 @@ import java.util.List;
  * @author longhuashen
  * @since 15/10/1
  */
-//@Service
-public class ToServiceImpl implements ITodoService {
+@Service
+public class ToServiceImpl implements TodoService {
 
     @Autowired
-    private ITodoDao todoDao;
+    private TodoDao todoDao;
 
     @Override
     public Todo saveTodo(Todo todo) {
