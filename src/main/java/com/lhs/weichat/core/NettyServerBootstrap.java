@@ -57,30 +57,34 @@ public class NettyServerBootstrap {
     private void bind() throws InterruptedException {
         EventLoopGroup boss = new NioEventLoopGroup();
         EventLoopGroup worker = new NioEventLoopGroup();
-        final ServerBootstrap serverBootstrap = new ServerBootstrap();
-        serverBootstrap.group(boss, worker);
-        serverBootstrap.channel(NioServerSocketChannel.class);
-        serverBootstrap.option(ChannelOption.SO_BACKLOG, 128);
-        serverBootstrap.option(ChannelOption.TCP_NODELAY, true);
-        serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
+        ServerBootstrap bootstrap = new ServerBootstrap();
+        bootstrap.group(boss, worker);
+        bootstrap.channel(NioServerSocketChannel.class);
+        bootstrap.option(ChannelOption.SO_BACKLOG, 128);
+        bootstrap.option(ChannelOption.TCP_NODELAY, true);
+        // 保持长连接状态
+        bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
+        bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel socketChannel) throws Exception {
-                ChannelPipeline channelPipeline = socketChannel.pipeline();
-                socketChannel.pipeline().addLast(new IdleStateHandler(200, 100, 0));
+                ChannelPipeline p = socketChannel.pipeline();
 
+                socketChannel.pipeline().addLast(
+                        new IdleStateHandler(200, 100, 0));
 
-                channelPipeline.addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
-                channelPipeline.addLast(new ProtobufDecoder(Msg.Message.getDefaultInstance()));
+                // decoded
+                p.addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
+                p.addLast(new ProtobufDecoder(Msg.Message.getDefaultInstance()));
+                // encoded
+                p.addLast(new LengthFieldPrepender(4));
+                p.addLast(new ProtobufEncoder());
 
-                channelPipeline.addLast(new LengthFieldPrepender(4));
-                channelPipeline.addLast(new ProtobufEncoder());
-
-                channelPipeline.addLast(msgChatHandler);
-                channelPipeline.addLast(clientLoginHandler);
+                p.addLast(msgChatHandler);
+                p.addLast(clientLoginHandler);
             }
         });
 
-        ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
+        ChannelFuture channelFuture = bootstrap.bind(port).sync();
         if (channelFuture.isSuccess()) {
             chatServerService.register(ip, port, name);
             logger.info("server start on name:【{}】,ip：【{}】, port：【{}】", name, ip, port);

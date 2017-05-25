@@ -39,37 +39,64 @@ public class ClientLoginHandler extends SimpleChannelInboundHandler<Msg.ClientLo
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Msg.ClientLoginMessage msg) throws Exception {
+        Session session = sessionManager.clientLoginAuth(ctx,
+                msg.getToken(), msg.getUserId());
+        System.out.println("===============>用户登录操作");
+        if (session != null) {
 
+            Msg.Message m = MsgHelper.newResultMessage(
+                    Msg.MessageType.LOGIN_SUCCESS, "登录成功！");
+            session.send(m);
+            // 发送代办消息
+//            List<Todo> todos = todoService.getUnCompleteTodoByUserId(message
+//                    .getUserId());
+//            if (todos != null && todos.size() > 0) {
+//                Msg.Message m2 = MsgHelper.newTodoListMessage(todos);
+//                session.send(m2);
+//            }
+        } else {
+
+            Msg.Message rtMessage = MsgHelper.newResultMessage(
+                    Msg.MessageType.LOGIN_ERROR, "用户认证失败!");
+            logger.error("用户登录失败，关闭。");
+            ctx.channel().writeAndFlush(rtMessage);
+            ctx.channel().close();
+        }
+        ReferenceCountUtil.release(msg);
     }
 
-//    @Override
-//    protected void messageReceived(ChannelHandlerContext channelHandlerContext,
-//                                   Msg.ClientLoginMessage message) throws Exception {
-//
-//        System.out.println("===============>用户登录操作");
-//
-//        Session session = sessionManager.clientLoginAuth(channelHandlerContext,
-//                message.getToken(), message.getUserId());
-//        if (session != null) {
-//
-//            Msg.Message m = MsgHelper.newResultMessage(
-//                    Msg.MessageType.LOGIN_SUCCESS, "登录成功！");
-//            session.send(m);
-//            // 发送代办消息
-////            List<Todo> todos = todoService.getUnCompleteTodoByUserId(message
-////                    .getUserId());
-////            if (todos != null && todos.size() > 0) {
-////                Msg.Message m2 = MsgHelper.newTodoListMessage(todos);
-////                session.send(m2);
-////            }
-//        } else {
-//
-//            Msg.Message rtMessage = MsgHelper.newResultMessage(
-//                    Msg.MessageType.LOGIN_ERROR, "用户认证失败!");
-//            logger.error("用户登录失败，关闭。");
-//            channelHandlerContext.channel().writeAndFlush(rtMessage);
-//            channelHandlerContext.channel().close();
-//        }
-//        ReferenceCountUtil.release(message);
-//    }
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        logger.error(">>>>>>>>>>>>>>>>>>>ClientLoginHandler exception caught：{}", cause);
+        ctx.channel().close();
+        ctx.close();
+    }
+    @Override
+    public void channelActive(ChannelHandlerContext channelHandlerContext) throws Exception {
+        System.out.println("===============>用户登录操作2222");
+
+        Session session = null;
+        if (session != null) {
+
+            Msg.Message m = MsgHelper.newResultMessage(
+                    Msg.MessageType.LOGIN_SUCCESS, "登录成功！");
+            session.send(m);
+            // 发送代办消息
+//            List<Todo> todos = todoService.getUnCompleteTodoByUserId(message
+//                    .getUserId());
+//            if (todos != null && todos.size() > 0) {
+//                Msg.Message m2 = MsgHelper.newTodoListMessage(todos);
+//                session.send(m2);
+//            }
+        } else {
+
+            Msg.Message rtMessage = MsgHelper.newResultMessage(
+                    Msg.MessageType.LOGIN_ERROR, "用户认证失败!");
+            System.out.println("用户登录失败，关闭。");
+            channelHandlerContext.channel().writeAndFlush(rtMessage);
+            channelHandlerContext.channel().close();
+        }
+//        ReferenceCountUtil.release(clientLoginMessage);
+    }
+
 }

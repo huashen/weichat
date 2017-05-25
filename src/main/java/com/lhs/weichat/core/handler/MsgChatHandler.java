@@ -8,12 +8,12 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * MsgChatHandler
@@ -31,115 +31,106 @@ public class MsgChatHandler extends SimpleChannelInboundHandler<Msg.Message> {
     @Autowired
     private AttachmentService attachmentService;
 
-//    @Override
-//    protected void messageReceived(ChannelHandlerContext channelHandlerContext,
-//                                   Msg.Message message) throws Exception {
-//
-//        switch (message.getMessageType()) {
-//            case CLIENT_LOGIN:
-//                if (message.getClientLoginMessage() != null) {
-////                    ClientLoginMessage msg = new ClientLoginMessage();
-////                    msg.setToken(message.getClientLoginMessage().getToken());
-////                    msg.setUserId(message.getClientLoginMessage().getUserId());
-////                    channelHandlerContext.fireChannelRead(msg);
-//                } else {
-//                    LOGGER.info("消息异常，用户登录消息为null。");
+    private final Logger logger = LoggerFactory.getLogger(MsgChatHandler.class);
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext ctx, Msg.Message message) throws Exception {
+        switch (message.getMessageType()) {
+            case CLIENT_LOGIN:
+                if (message.getClientLoginMessage() != null) {
+//                    ClientLoginMessage message = new ClientLoginMessage();
+//                    message.setToken(message.getClientLoginMessage().getToken());
+//                    message.setUserId(message.getClientLoginMessage().getUserId());
+//                    channelHandlerContext.fireChannelRead(message);
+                } else {
+                    logger.info("消息异常，用户登录消息为null。");
+                }
+                break;
+            case CLIENT_PONG:
+                if (message.getPingMessage() != null
+                        && (message.getMessageType()
+                        .equals(Msg.MessageType.CLIENT_PONG))) {
+                    logger.info("client pong消息不用处理");
+                } else {
+                    logger.info("消息异常，client pong消息为null或者消息类型异常。");
+                }
+                break;
+            case CLIENT_PING:
+
+                break;
+            case SERVER_LOGIN:
+//                if (message.getServerLoginMessage() != null) {
+//                    ServerLoginMessage message = new ServerLoginMessage();
+//                    message.setIp(message.getServerLoginMessage().getIp());
+//                    message.setPort(message.getServerLoginMessage().getPort());
+//                    channelHandlerContext.fireChannelRead(message);
 //                }
-//                break;
-//            case CLIENT_PONG:
+                break;
+            case SERVER_PING:
 //                if (message.getPingMessage() != null
 //                        && (message.getMessageType()
-//                        .equals(Msg.MessageType.CLIENT_PONG))) {
-//                    LOGGER.info("client pong消息不用处理");
+//                        .equals(Msg.MessageType.SERVER_PING))) {
+//                    PingMessage message = new PingMessage();
+//                    message.setClientId(message.getPingMessage().getClientId());
+//                    message.setMessageType(Msg.MessageType.SERVER_PING);
+//                    channelHandlerContext.fireChannelRead(message);
 //                } else {
-//                    LOGGER.info("消息异常，client pong消息为null或者消息类型异常。");
+//                    logger.info("消息异常，client ping消息为null或者消息类型异常。");
 //                }
-//                break;
-//            case CLIENT_PING:
-////                if (message.getPingMessage() != null
-////                        && (message.getMessageType()
-////                        .equals(Msg.MessageType.CLIENT_PING))) {
-////                    PingMessage msg = new PingMessage();
-////                    msg.setClientId(message.getPingMessage().getClientId());
-////                    msg.setMessageType(Msg.MessageType.CLIENT_PING);
-////                    channelHandlerContext.fireChannelRead(msg);
-////                } else {
-////                    LOGGER.info("消息异常，client ping消息为null或者消息类型异常。");
-////                }
-//                break;
-//            case SERVER_LOGIN:
-////                if (message.getServerLoginMessage() != null) {
-////                    ServerLoginMessage msg = new ServerLoginMessage();
-////                    msg.setIp(message.getServerLoginMessage().getIp());
-////                    msg.setPort(message.getServerLoginMessage().getPort());
-////                    channelHandlerContext.fireChannelRead(msg);
-////                }
-//                break;
-//            case SERVER_PING:
-////                if (message.getPingMessage() != null
-////                        && (message.getMessageType()
-////                        .equals(Msg.MessageType.SERVER_PING))) {
-////                    PingMessage msg = new PingMessage();
-////                    msg.setClientId(message.getPingMessage().getClientId());
-////                    msg.setMessageType(Msg.MessageType.SERVER_PING);
-////                    channelHandlerContext.fireChannelRead(msg);
-////                } else {
-////                    LOGGER.info("消息异常，client ping消息为null或者消息类型异常。");
-////                }
-//                break;
-//            case SERVER_PONG:
-//                LOGGER.info("server pong消息不用处理");
-//                break;
-//            case CHAT_MESSAGE:
-//                if (message.getChatMessage() != null) {
-//                    ChatMessage msg = new ChatMessage();
-//                    msg.setContent(message.getChatMessage().getContent());
-//                    msg.setFromId(message.getChatMessage().getFromId());
-//                    msg.setToId(message.getChatMessage().getToId());
-//                    msg.setToken(message.getChatMessage().getToken());
-//                    msg.setTransfer(message.getChatMessage().getTransfer());
-//                    msg.setType(ChatMessage.TYPE_SEND);
-//                    msg.setMsgType(message.getChatMessage().getMsgType());
-//                    msg.setChatGroupId(message.getChatMessage().getChatGroupId());
-//                    msg.setDiscussionGroupId(message.getChatMessage()
-//                            .getDiscussionGroupId());
-//                    msg.setUuid(message.getChatMessage().getUuid());
-//                    msg.setStatus(ChatMessage.STATUS_SEND);
-//                    // 都以当前服务器时间为准
-//                    msg.setDate(new Date());
-//                    msg.setContentType(message.getChatMessage().getContentType());
-//
-//
-//                    channelHandlerContext.fireChannelRead(msg);
-//                } else {
-//                    LOGGER.info("消息异常，chat message消息为null。");
-//                }
-//                break;
-//            case CLIENT_REQUEST:
-////                if (message.getClientRequestMessage() != null) {
-////                    ClientRequestMessage r = new ClientRequestMessage();
-////                    r.setParameter(message.getClientRequestMessage().getParameter());
-////                    r.setRequestType(message.getClientRequestMessage()
-////                            .getRequestType());
-////                    r.setUserId(message.getClientRequestMessage().getUserId());
-////                    r.setToken(message.getClientRequestMessage().getToken());
-////                    channelHandlerContext.fireChannelRead(r);
-////                } else {
-////                    LOGGER.info("消息异常，ClientRequest message消息为null。");
-////                }
-//                break;
-//            case FIEL:
-//                if (message.getFileUpload() != null) {
-//
-//                } else {
-//                    System.out.println("消息异常，FileUpload message消息为null。");
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//        ReferenceCountUtil.release(message);
-//    }
+                break;
+            case SERVER_PONG:
+                logger.info("server pong消息不用处理");
+                break;
+            case CHAT_MESSAGE:
+                if (message.getChatMessage() != null) {
+                    ChatMessage msg = new ChatMessage();
+                    msg.setContent(message.getChatMessage().getContent());
+                    msg.setFromId(message.getChatMessage().getFromId());
+                    msg.setToId(message.getChatMessage().getToId());
+                    msg.setToken(message.getChatMessage().getToken());
+                    msg.setTransfer(message.getChatMessage().getTransfer());
+                    msg.setType(ChatMessage.TYPE_SEND);
+                    msg.setMsgType(message.getChatMessage().getMsgType());
+                    msg.setChatGroupId(message.getChatMessage().getChatGroupId());
+                    msg.setDiscussionGroupId(message.getChatMessage()
+                            .getDiscussionGroupId());
+                    msg.setUuid(message.getChatMessage().getUuid());
+                    msg.setStatus(ChatMessage.STATUS_SEND);
+                    // 都以当前服务器时间为准
+                    msg.setDate(new Date());
+                    msg.setContentType(message.getChatMessage().getContentType());
+
+
+                    ctx.fireChannelRead(msg);
+                } else {
+                    logger.info("消息异常，chat message消息为null。");
+                }
+                break;
+            case CLIENT_REQUEST:
+                if (message.getClientRequestMessage() != null) {
+//                    ClientRequestMessage r = new ClientRequestMessage();
+//                    r.setParameter(message.getClientRequestMessage().getParameter());
+//                    r.setRequestType(message.getClientRequestMessage()
+//                            .getRequestType());
+//                    r.setUserId(message.getClientRequestMessage().getUserId());
+//                    r.setToken(message.getClientRequestMessage().getToken());
+//                    channelHandlerContext.fireChannelRead(r);
+                } else {
+                    logger.info("消息异常，ClientRequest message消息为null。");
+                }
+                break;
+            case FIEL:
+                if (message.getFileUpload() != null) {
+
+                } else {
+                    System.out.println("消息异常，FileUpload message消息为null。");
+                }
+                break;
+            default:
+                break;
+        }
+        ReferenceCountUtil.release(message);
+    }
 
     /**
      * 发生异常时如何处理
@@ -147,16 +138,11 @@ public class MsgChatHandler extends SimpleChannelInboundHandler<Msg.Message> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
-        System.out.println("发生异常,用户将下线，session 将被移除，channel 将被关闭！");
+        logger.error("发生异常,用户将下线，session 将被移除，channel 将被关闭！");
 
         // 用户下线
         sessionManager.logout(ctx.channel());
         ctx.channel().close();
         ctx.close();
-    }
-
-    @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Msg.Message msg) throws Exception {
-
     }
 }
