@@ -1,16 +1,14 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.User;
 
-import java.util.List;
-
 /**
- * UserDao
+ * UserMapper
  *
  * @author longhuashen
  * @since 15/9/24
  */
-public interface UserDao {
+public interface UserMapper {
 
     /**
      * 注册用户

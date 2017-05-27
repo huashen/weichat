@@ -1,4 +1,4 @@
-package com.lhs.service;
+package com.lhs.weichat.service;
 
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.bean.MsgHelper;
@@ -7,8 +7,6 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.net.InetSocketAddress;
 
 /**
  * NettyClientHandler

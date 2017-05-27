@@ -1,16 +1,16 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.ChatServer;
 
 import java.util.List;
 
 /**
- * ChatServerDao
+ * ChatServerMapper
  *
  * @author longhuashen
  * @since 15/10/3
  */
-public interface ChatServerDao {
+public interface ChatServerMapper {
 
 
     List<ChatServer> getOnlineServer();

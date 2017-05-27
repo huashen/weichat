@@ -1,4 +1,4 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.Friends;
 import com.lhs.weichat.bean.User;
@@ -6,12 +6,12 @@ import com.lhs.weichat.bean.User;
 import java.util.List;
 
 /**
- * FriendsDao
+ * FriendsMapper
  *
  * @author longhuashen
  * @since 15/11/5
  */
-public interface FriendsDao {
+public interface FriendsMapper {
 
     List<Friends> getFriendsByUserId(int userId);
 

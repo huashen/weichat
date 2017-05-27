@@ -1,11 +1,14 @@
-package com.lhs.service;
+package com.lhs.weichat.service;
 
+import com.lhs.weichat.Application;
 import com.lhs.weichat.bean.User;
+import com.lhs.weichat.core.NettyServerBootstrap;
 import com.lhs.weichat.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,7 +21,7 @@ import java.util.Date;
  * @since 15/9/24
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:applicationContext.xml")
+@SpringApplicationConfiguration(classes = Application.class)
 public final class TestUserService {
 
     @Autowired

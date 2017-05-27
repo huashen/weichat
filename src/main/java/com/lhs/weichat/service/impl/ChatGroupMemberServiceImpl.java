@@ -3,7 +3,7 @@ package com.lhs.weichat.service.impl;
 import com.lhs.weichat.bean.ChatGroup;
 import com.lhs.weichat.bean.ChatGroupMember;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.ChatGroupMemberDao;
+import com.lhs.weichat.mapper.ChatGroupMemberMapper;
 import com.lhs.weichat.service.ChatGroupMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +16,15 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/9
  */
-@Service
+@Service("chatGroupMemberService")
 public class ChatGroupMemberServiceImpl implements ChatGroupMemberService {
 
     @Autowired
-    private ChatGroupMemberDao chatGroupMemberDao;
+    private ChatGroupMemberMapper chatGroupMemberMapper;
 
     @Override
     public List<ChatGroupMember> getUnshieldMemberByChatGroupId(int chatGroupId) {
-        return chatGroupMemberDao.getUnshieldMemberByChatGroupId(chatGroupId);
+        return chatGroupMemberMapper.getUnshieldMemberByChatGroupId(chatGroupId);
     }
 
     @Override

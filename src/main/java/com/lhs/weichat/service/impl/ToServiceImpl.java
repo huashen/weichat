@@ -1,7 +1,7 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.Todo;
-import com.lhs.weichat.dao.TodoDao;
+import com.lhs.weichat.mapper.TodoMapper;
 import com.lhs.weichat.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,21 +19,21 @@ import java.util.List;
 public class ToServiceImpl implements TodoService {
 
     @Autowired
-    private TodoDao todoDao;
+    private TodoMapper todoMapper;
 
     @Override
     public Todo saveTodo(Todo todo) {
-        return todoDao.saveTodo(todo);
+        return todoMapper.saveTodo(todo);
     }
 
     @Override
     public void updateTodo(Todo todo) {
-        todoDao.updateTodo(todo);
+        todoMapper.updateTodo(todo);
     }
 
     @Override
     public Todo getTodoById(int todoId) {
-        return todoDao.getTodoById(todoId);
+        return todoMapper.getTodoById(todoId);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class ToServiceImpl implements TodoService {
             todo.setComplete(true);
             todo.setHandleDate(new Date());
             todo.setAgree(argeeOrNot);
-            todoDao.updateTodo(todo);
+            todoMapper.updateTodo(todo);
         }
     }
 
     @Override
     public List<Todo> getAllTodoByToId(int userId, int fid) {
-        return todoDao.getAllTodoByToId(userId, fid);
+        return todoMapper.getAllTodoByToId(userId, fid);
     }
 }

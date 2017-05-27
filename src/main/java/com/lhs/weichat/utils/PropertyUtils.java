@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +20,14 @@ import java.util.Properties;
  * @author longhuashen
  * @since 15/10/8
  */
+@Component
+@PropertySource("classpath:netty.properties")
 public class PropertyUtils extends PropertyPlaceholderConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 
     private static Map<String, String> propertyMap;
+
 
     @Override
     protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props) throws BeansException {

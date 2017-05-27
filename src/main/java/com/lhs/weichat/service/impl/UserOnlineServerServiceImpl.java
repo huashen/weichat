@@ -3,8 +3,8 @@ package com.lhs.weichat.service.impl;
 import com.lhs.weichat.bean.ChatServer;
 import com.lhs.weichat.bean.UserAuthToken;
 import com.lhs.weichat.bean.UserOnlineServer;
-import com.lhs.weichat.dao.UserAuthTokenDao;
-import com.lhs.weichat.dao.UserOnlineServerDao;
+import com.lhs.weichat.mapper.UserAuthTokenMapper;
+import com.lhs.weichat.mapper.UserOnlineServerMapper;
 import com.lhs.weichat.service.UserOnlineServerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,27 +23,27 @@ import java.util.Set;
 public class UserOnlineServerServiceImpl implements UserOnlineServerService {
 
     @Autowired
-    private UserAuthTokenDao userAuthTokenDao;
+    private UserAuthTokenMapper userAuthTokenMapper;
 
     @Autowired
-    private UserOnlineServerDao userOnlineServerDao;
+    private UserOnlineServerMapper userOnlineServerMapper;
 
     @Override
     public ChatServer getOnlineServer(int userId, String token) {
-        UserAuthToken userAuthToken = userAuthTokenDao.getUserAuthTokenByUserIdAndToken(userId, token);
+        UserAuthToken userAuthToken = userAuthTokenMapper.getUserAuthTokenByUserIdAndToken(userId, token);
         if(userAuthToken != null) {
-            UserOnlineServer userOnlineServer = userOnlineServerDao.getOnlineServerByToken(userAuthToken.getId());
+            UserOnlineServer userOnlineServer = userOnlineServerMapper.getOnlineServerByToken(userAuthToken.getId());
         }
         return null;
     }
 
     @Override
     public Set<ChatServer> getOnlineServer(int userId) {
-        List<UserAuthToken> userAuthTokens = userAuthTokenDao.getUserAuthTokenByUserId(userId);
+        List<UserAuthToken> userAuthTokens = userAuthTokenMapper.getUserAuthTokenByUserId(userId);
         Set<ChatServer> set = new HashSet<>();
         if (userAuthTokens != null && userAuthTokens.size() > 0) {
             for (UserAuthToken userAuthToken : userAuthTokens) {
-                UserOnlineServer userOnlineServer = userOnlineServerDao.getOnlineServerByToken(userAuthToken.getId());
+                UserOnlineServer userOnlineServer = userOnlineServerMapper.getOnlineServerByToken(userAuthToken.getId());
                 if (userOnlineServer != null) {
                     //set.add(userOnlineServer.getChatServer());
                 }
@@ -54,11 +54,11 @@ public class UserOnlineServerServiceImpl implements UserOnlineServerService {
 
     @Override
     public Set<UserAuthToken> getOnlineToken(int userId) {
-        List<UserAuthToken> userAuthTokens = userAuthTokenDao.getUserAuthTokenByUserId(userId);
+        List<UserAuthToken> userAuthTokens = userAuthTokenMapper.getUserAuthTokenByUserId(userId);
         Set<UserAuthToken> set = new HashSet<>();
         if (userAuthTokens != null && userAuthTokens.size() > 0) {
             for (UserAuthToken userAuthToken : userAuthTokens) {
-                UserOnlineServer userOnlineServer = userOnlineServerDao.getOnlineServerByToken(userAuthToken.getId());
+                UserOnlineServer userOnlineServer = userOnlineServerMapper.getOnlineServerByToken(userAuthToken.getId());
                 if (userOnlineServer != null) {
                     set.add(userAuthToken);
                 }

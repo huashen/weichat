@@ -1,4 +1,4 @@
-package com.lhs.service;
+package com.lhs.weichat.service;
 
 import com.lhs.weichat.core.Constants;
 import com.lhs.weichat.core.bean.Msg;

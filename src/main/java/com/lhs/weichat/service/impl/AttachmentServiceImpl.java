@@ -1,7 +1,7 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.Attachment;
-import com.lhs.weichat.dao.AttachmentDao;
+import com.lhs.weichat.mapper.AttachmentMapper;
 import com.lhs.weichat.service.AttachmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,20 +12,20 @@ import org.springframework.stereotype.Service;
  * @author longhuashen
  * @since 15/9/24
  */
-@Service
+@Service("attachmentService")
 public class AttachmentServiceImpl implements AttachmentService {
 
     @Autowired
-    private AttachmentDao attachmentDao;
+    private AttachmentMapper attachmentMapper;
 
     @Override
     public Attachment getAttachmentById(int id) {
-        return attachmentDao.getAttachmentById(id);
+        return attachmentMapper.getAttachmentById(id);
     }
 
     @Override
     public Attachment getAttachmentByGroupNameAndPath(String groupName, String path) {
-        return attachmentDao.getAttachmentByGroupNameAndPath(groupName, path);
+        return attachmentMapper.getAttachmentByGroupNameAndPath(groupName, path);
     }
 
     @Override
@@ -39,6 +39,6 @@ public class AttachmentServiceImpl implements AttachmentService {
         if(a != null) {
             return a;
         }
-        return attachmentDao.saveAttachment(Attachment);
+        return attachmentMapper.saveAttachment(Attachment);
     }
 }

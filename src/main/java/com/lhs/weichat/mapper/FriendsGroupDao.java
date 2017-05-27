@@ -1,4 +1,4 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.FriendsGroup;
 

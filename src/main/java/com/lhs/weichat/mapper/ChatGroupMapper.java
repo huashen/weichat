@@ -1,4 +1,4 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.ChatGroup;
 import com.lhs.weichat.bean.User;
@@ -6,12 +6,12 @@ import com.lhs.weichat.bean.User;
 import java.util.List;
 
 /**
- * ChatGroupDao
+ * ChatGroupMapper
  *
  * @author longhuashen
  * @since 15/11/9
  */
-public interface ChatGroupDao {
+public interface ChatGroupMapper {
 
     List<ChatGroup> search(String condition);
 

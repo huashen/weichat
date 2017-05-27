@@ -1,15 +1,15 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 
 import com.lhs.weichat.bean.Attachment;
 
 /**
- * AttachmentDao
+ * AttachmentMapper
  *
  * @author longhuashen
  * @since 15/9/24
  */
-public interface AttachmentDao {
+public interface AttachmentMapper {
 
     Attachment saveAttachment(Attachment Attachment);
 

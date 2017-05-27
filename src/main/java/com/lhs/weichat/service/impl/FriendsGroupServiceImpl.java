@@ -1,7 +1,7 @@
 package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.FriendsGroup;
-import com.lhs.weichat.dao.FriendsGroupDao;
+import com.lhs.weichat.mapper.FriendsGroupDao;
 import com.lhs.weichat.service.FriendsGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

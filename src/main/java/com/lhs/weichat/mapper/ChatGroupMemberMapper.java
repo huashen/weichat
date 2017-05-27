@@ -1,4 +1,4 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.ChatGroup;
 import com.lhs.weichat.bean.ChatGroupMember;
@@ -6,12 +6,12 @@ import com.lhs.weichat.bean.ChatGroupMember;
 import java.util.List;
 
 /**
- * ChatGroupMemberDao
+ * ChatGroupMemberMapper
  *
  * @author longhuashen
  * @since 15/11/9
  */
-public interface ChatGroupMemberDao {
+public interface ChatGroupMemberMapper {
 
     List<ChatGroup> getChatGroupByMember(int userId);
 

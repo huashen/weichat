@@ -2,7 +2,7 @@ package com.lhs.weichat.service.impl;
 
 import com.lhs.weichat.bean.ChatGroup;
 import com.lhs.weichat.bean.User;
-import com.lhs.weichat.dao.ChatGroupDao;
+import com.lhs.weichat.mapper.ChatGroupMapper;
 import com.lhs.weichat.service.ChatGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ import java.util.List;
  * @author longhuashen
  * @since 15/11/9
  */
-@Service
+@Service("chatGroupService")
 public class ChatGroupServiceImpl implements ChatGroupService {
 
     @Autowired
-    private ChatGroupDao chatGroupDao;
+    private ChatGroupMapper chatGroupDao;
 
     @Override
     public List<ChatGroup> search(String condition) {

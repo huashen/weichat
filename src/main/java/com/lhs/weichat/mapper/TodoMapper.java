@@ -1,16 +1,16 @@
-package com.lhs.weichat.dao;
+package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.Todo;
 
 import java.util.List;
 
 /**
- * TodoDao
+ * TodoMapper
  *
  * @author longhuashen
  * @since 15/10/1
  */
-public interface TodoDao {
+public interface TodoMapper {
 
 
     Todo saveTodo(Todo todo);
