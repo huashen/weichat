@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -30,15 +30,17 @@ import org.springframework.stereotype.Service;
  * @since 17/5/21
  */
 @Service
-@ConfigurationProperties(prefix="netty.server")
 public class NettyServerBootstrap implements InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(NettyServerBootstrap.class);
 
+    @Value("${netty.server.ip}")
     private String ip;
 
+    @Value("${netty.server.port}")
     private int port;
 
+    @Value("${netty.server.name}")
     private String name;
 
     private ChatServerService chatServerService;

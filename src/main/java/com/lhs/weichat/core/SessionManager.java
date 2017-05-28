@@ -9,7 +9,6 @@ import com.lhs.weichat.core.bean.MsgHelper;
 import com.lhs.weichat.service.ChatServerService;
 import com.lhs.weichat.service.UserAuthTokenService;
 import com.lhs.weichat.service.UserOnlineServerService;
-import com.lhs.weichat.utils.PropertyUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;
@@ -53,6 +52,11 @@ public class SessionManager {
 
     private static Map<String, Channel> channelKeyMap = new ConcurrentHashMap<>();
 
+
+    private String ip;
+
+    private int port;
+
     public static void add(String clientId, Session session) {
         sessionMap.put(clientId, session);
         sessionKeyMap.put(session, clientId);
@@ -78,19 +82,9 @@ public class SessionManager {
     public void logout(Channel channel) {
         Session session = SessionManager.get(channel);
         if (session != null && session.getType().equals(Session.SessionType.SC)) {
-            userOnlineServerService.removeUserOnlineServer(session.getUserId(), session.getToken(), SessionManager.getIp(), SessionManager.getPort());
+            userOnlineServerService.removeUserOnlineServer(session.getUserId(), session.getToken(), this.getIp(), this.getPort());
         }
 
-    }
-
-    private static int getPort() {
-        int port = Integer.parseInt(PropertyUtils.getValue("netty.server.port"));
-        return port;
-    }
-
-    private static String getIp() {
-        String ip = PropertyUtils.getValue("netty.server.ip");
-        return ip;
     }
 
     private static Session get(Channel channel) {
@@ -105,7 +99,7 @@ public class SessionManager {
         if (user.getId() == userId) {
             session = new Session(channelHandlerContext.channel(), userId, token);
             SessionManager.add(userId + token, session);
-            userOnlineServerService.saveUserOnlineServer(userId, token, SessionManager.getIp(), SessionManager.getPort());
+            userOnlineServerService.saveUserOnlineServer(userId, token, this.getIp(), this.getPort());
         }
         return session;
     }
@@ -189,7 +183,7 @@ public class SessionManager {
         String clientId = ip + ":" + port;
         Session session = SessionManager.get(clientId);
         if (session != null) {
-            Msg.Message pong = MsgHelper.newPingMessage(Msg.MessageType.SERVER_PONG, SessionManager.getIp() + ":" + SessionManager.getPort());
+            Msg.Message pong = MsgHelper.newPingMessage(Msg.MessageType.SERVER_PONG, this.getIp() + ":" + this.getPort());
             session.send(pong);
         } else {
             logger.info("响应服务器ping是获取channel失败。");
@@ -203,7 +197,7 @@ public class SessionManager {
      */
     public void clientPing(Session session) {
         if (session != null) {
-            Msg.Message pong = MsgHelper.newPingMessage(Msg.MessageType.CLIENT_PONG, SessionManager.getIp() + ":" + SessionManager.getPort());
+            Msg.Message pong = MsgHelper.newPingMessage(Msg.MessageType.CLIENT_PONG, this.getIp() + ":" + this.getPort());
             session.send(pong);
         } else {
             logger.info("响应客户端ping时获取channel失败");
@@ -289,5 +283,21 @@ public class SessionManager {
             }
         }
         return flag;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 }
