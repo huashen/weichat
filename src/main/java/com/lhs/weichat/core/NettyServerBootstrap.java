@@ -3,6 +3,7 @@ package com.lhs.weichat.core;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.handler.ClientLoginHandler;
 import com.lhs.weichat.core.handler.MsgChatHandler;
+import com.lhs.weichat.core.handler.PingHandler;
 import com.lhs.weichat.service.ChatServerService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -52,6 +53,9 @@ public class NettyServerBootstrap implements InitializingBean {
     private MsgChatHandler msgChatHandler;
 
     @Autowired
+    private PingHandler pingHandler;
+
+    @Autowired
     public NettyServerBootstrap(ChatServerService chatServerService) throws InterruptedException {
         this.chatServerService = chatServerService;
     }
@@ -69,20 +73,27 @@ public class NettyServerBootstrap implements InitializingBean {
         bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel socketChannel) throws Exception {
-                ChannelPipeline p = socketChannel.pipeline();
+                ChannelPipeline pipeline = socketChannel.pipeline();
 
-                socketChannel.pipeline().addLast(
-                        new IdleStateHandler(200, 100, 0));
+//                socketChannel.pipeline().addLast(
+//                        new IdleStateHandler(200, 100, 0));
+//
+//                // decoded
+//                pipeline.addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
+//                pipeline.addLast(new ProtobufDecoder(Msg.Message.getDefaultInstance()));
+//                // encoded
+//                pipeline.addLast(new LengthFieldPrepender(4));
+//                pipeline.addLast(new ProtobufEncoder());
 
-                // decoded
-                p.addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
-                p.addLast(new ProtobufDecoder(Msg.Message.getDefaultInstance()));
-                // encoded
-                p.addLast(new LengthFieldPrepender(4));
-                p.addLast(new ProtobufEncoder());
 
-                p.addLast(msgChatHandler);
-                p.addLast(clientLoginHandler);
+                pipeline.addLast("frameDecoder",new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
+                pipeline.addLast("protobufDecoder", new ProtobufDecoder(Msg.Message.getDefaultInstance()));
+                pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
+                pipeline.addLast("protobufEncoder", new ProtobufEncoder());
+
+//                p.addLast(msgChatHandler);
+                pipeline.addLast(clientLoginHandler);
+                pipeline.addLast(pingHandler);
             }
         });
 

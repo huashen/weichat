@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lhs.weichat.mapper.UserAuthTokenMapper">
+    <sql id="weichat_user_auth_token_column">
+        id,
+        client_id,
+        client_type,
+        create_date,
+        enable,
+        token,
+        user_id
+    </sql>
+
+    <resultMap type="UserAuthToken" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="clientType" column="client_type"/>
+        <result property="createDate" column="create_date"/>
+        <result property="enable" column="enable"/>
+        <result property="token" column="token"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <select id="getUserAuthTokenByToken" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="weichat_user_auth_token_column"/>
+        from t_user_auth_token
+        where token = #{token}
+    </select>
+
+</mapper>

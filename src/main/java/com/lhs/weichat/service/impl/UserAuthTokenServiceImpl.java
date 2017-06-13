@@ -3,6 +3,7 @@ package com.lhs.weichat.service.impl;
 import com.lhs.weichat.bean.User;
 import com.lhs.weichat.bean.UserAuthToken;
 import com.lhs.weichat.mapper.UserAuthTokenMapper;
+import com.lhs.weichat.mapper.UserMapper;
 import com.lhs.weichat.service.UserAuthTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,15 @@ public class UserAuthTokenServiceImpl implements UserAuthTokenService {
     @Autowired
     private UserAuthTokenMapper userAuthTokenMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public void save(User user, String clientId, String clientType, String token) {
         UserAuthToken userAuthToken = userAuthTokenMapper.getUserAuthTokenByUserIdAndToken(user.getId(), clientId);
         if (userAuthToken == null) {
             userAuthToken = new UserAuthToken();
-            userAuthToken.setUser(user);
+            userAuthToken.setUserId(user.getId());
             userAuthToken.setClientId(clientId);
         }
         userAuthToken.setEnable(true);
@@ -49,6 +53,10 @@ public class UserAuthTokenServiceImpl implements UserAuthTokenService {
 
     @Override
     public User getUserByToken(String token) {
-        return userAuthTokenMapper.getUserByToken(token);
+        UserAuthToken userAuthToken = userAuthTokenMapper.getUserAuthTokenByToken(token);
+        if (userAuthToken != null) {
+            return userMapper.getUserById(userAuthToken.getUserId());
+        }
+        return null;
     }
 }

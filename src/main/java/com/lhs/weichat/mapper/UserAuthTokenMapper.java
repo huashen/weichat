@@ -1,6 +1,5 @@
 package com.lhs.weichat.mapper;
 
-import com.lhs.weichat.bean.User;
 import com.lhs.weichat.bean.UserAuthToken;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public interface UserAuthTokenMapper {
 
     List<UserAuthToken> getUserAuthTokenByUserId(int userId);
 
-    User getUserByToken(String token);
+    UserAuthToken getUserAuthTokenByToken(String token);
 
     void saveUserAuthToken(UserAuthToken userAuthToken);
 }

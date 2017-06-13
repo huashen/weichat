@@ -18,7 +18,7 @@ public class UserAuthToken {
 	/**
 	 * 创建人Id
 	 */
-	private User user;
+	private Integer userId;
 	/**
 	 * 认证token
 	 */
@@ -53,24 +53,16 @@ public class UserAuthToken {
 		this.id = id;
 	}
 
-	public String getClientId() {
-		return clientId;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
-	}
-
-	public User getUser() {
-		return user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getToken() {
 		return token;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public void setToken(String token) {
@@ -81,23 +73,31 @@ public class UserAuthToken {
 		return enable;
 	}
 
-	public String getClientType() {
-		return clientType;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	public String getClientType() {
+		return clientType;
 	}
 
 	public void setClientType(String clientType) {
 		this.clientType = clientType;
 	}
 
+	public Date getCreateDate() {
+		return createDate;
+	}
+
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 }

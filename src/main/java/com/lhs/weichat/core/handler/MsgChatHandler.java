@@ -2,6 +2,7 @@ package com.lhs.weichat.core.handler;
 
 import com.lhs.weichat.bean.ChatMessage;
 import com.lhs.weichat.core.SessionManager;
+import com.lhs.weichat.core.bean.ClientLoginMessage;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.service.AttachmentService;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -11,7 +12,7 @@ import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -22,7 +23,7 @@ import java.util.Date;
  * @since 17/5/22
  */
 @Sharable
-@Service
+@Component
 public class MsgChatHandler extends SimpleChannelInboundHandler<Msg.Message> {
 
     @Autowired
@@ -38,10 +39,10 @@ public class MsgChatHandler extends SimpleChannelInboundHandler<Msg.Message> {
         switch (message.getMessageType()) {
             case CLIENT_LOGIN:
                 if (message.getClientLoginMessage() != null) {
-//                    ClientLoginMessage message = new ClientLoginMessage();
-//                    message.setToken(message.getClientLoginMessage().getToken());
-//                    message.setUserId(message.getClientLoginMessage().getUserId());
-//                    channelHandlerContext.fireChannelRead(message);
+                    ClientLoginMessage clientLoginMessage = new ClientLoginMessage();
+                    clientLoginMessage.setToken(message.getClientLoginMessage().getToken());
+                    clientLoginMessage.setUserId(message.getClientLoginMessage().getUserId());
+                    ctx.fireChannelRead(message);
                 } else {
                     logger.info("消息异常，用户登录消息为null。");
                 }

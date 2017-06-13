@@ -57,6 +57,19 @@ CREATE TABLE IF NOT EXISTS t_chat_group (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 
+#聊天群表
+CREATE TABLE IF NOT EXISTS t_user_auth_token (
+  id int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长主键',
+  client_id varchar(50) NOT NULL COMMENT '客户端id',
+  client_type varchar(250) COMMENT '客户端类型',
+  create_date datetime default NULL COMMENT '创建时间',
+  enable tinyint COMMENT '是否可用',
+  token varchar(100) COMMENT 'token',
+  user_id int(11) COMMENT '用户id',
+  PRIMARY KEY (id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
 
 
 

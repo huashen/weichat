@@ -79,6 +79,18 @@ public class SessionManager {
         channelKeyMap.remove(key);
     }
 
+    public static void remove(Channel channel) {
+        String key = channelMap.get(channel);
+        if (key == null) {
+            return;
+        }
+        Session session = sessionMap.get(key);
+        sessionMap.remove(key);
+        sessionKeyMap.remove(session);
+        channelMap.remove(channel);
+        channelKeyMap.remove(key);
+    }
+
     public void logout(Channel channel) {
         Session session = SessionManager.get(channel);
         if (session != null && session.getType().equals(Session.SessionType.SC)) {
@@ -87,7 +99,7 @@ public class SessionManager {
 
     }
 
-    private static Session get(Channel channel) {
+    public static Session get(Channel channel) {
         String key = channelMap.get(channel);
         return sessionMap.get(key);
     }
