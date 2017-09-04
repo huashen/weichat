@@ -92,7 +92,7 @@ public class NettyServerBootstrap implements InitializingBean {
                 pipeline.addLast("protobufEncoder", new ProtobufEncoder());
 
 //                p.addLast(msgChatHandler);
-                pipeline.addLast(clientLoginHandler);
+//                pipeline.addLast(clientLoginHandler);
                 pipeline.addLast(pingHandler);
             }
         });

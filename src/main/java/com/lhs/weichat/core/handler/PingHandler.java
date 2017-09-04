@@ -5,21 +5,19 @@ import com.lhs.weichat.core.SessionManager;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.bean.MsgHelper;
 import com.lhs.weichat.core.bean.PingMessage;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
-import io.netty.util.CharsetUtil;
 import io.netty.util.ReferenceCountUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.lhs.weichat.core.bean.Msg.MessageType.*;
+import static com.lhs.weichat.core.bean.Msg.MessageType.SERVER_PING;
 
 /**
  * PingHandler
@@ -121,8 +119,11 @@ public class PingHandler extends SimpleChannelInboundHandler<PingMessage> {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         Msg.Message in = (Msg.Message) msg;
-//        System.out.println("Server received:" + in.getMessageType());
-//        ctx.write(in);
-        System.out.println(msg);
+        System.out.println(">>>>>ping Handler:" + msg);
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        super.exceptionCaught(ctx, cause);
     }
 }

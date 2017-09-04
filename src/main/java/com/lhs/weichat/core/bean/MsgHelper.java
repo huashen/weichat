@@ -253,4 +253,33 @@ public class MsgHelper {
         Msg.Message m = b.build();
         return m;
     }
+
+    /**
+     * 聊天消息
+     *
+     * @param fromId
+     * @param toId
+     * @param content
+     * @param token
+     * @param date
+     * @param contentType
+     * @return
+     */
+    public static Msg.Message newUUChatMessage(String uuid, int fromId, int toId,
+                                           String content, String token, boolean transfer, String date,
+                                           int id, int contentType, String fileGroupName, String path,
+                                           int status) {
+        Msg.ChatMessage chatMessage = Msg.ChatMessage.newBuilder()
+                .setContent(content).setFromId(fromId).setToId(toId)
+                .setMsgType(ChatMessage.MSG_TYPE_UU).setToken(token)
+                .setChatMessageId(id).setDate(date).setTransfer(transfer)
+                .setFileGroupName(fileGroupName).setFilePath(path)
+                .setStatus(status).setUuid(uuid).setContentType(contentType)
+                .build();
+
+        Msg.Message.Builder b = Msg.Message.newBuilder();
+        Msg.Message m = b.setChatMessage(chatMessage)
+                .setMessageType(Msg.MessageType.CHAT_MESSAGE).build();
+        return m;
+    }
 }
