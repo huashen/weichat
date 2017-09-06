@@ -49,7 +49,6 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Message> {
             if (r) {
                 pingTimes = 0;
             }
-            System.out.println("重连结果：" + r);
         }
 
         pingTimes++;
@@ -63,9 +62,9 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Message> {
             IdleStateEvent e = (IdleStateEvent) evt;
             switch (e.state()) {
                 case WRITER_IDLE:
-                    LOGGER.info("org.weishe.weichat", "服务器客户端：WRITER_IDLE");
+                    LOGGER.info(">>>>>>>>>>>>>>>>服务器客户端：WRITER_IDLE");
                     sendPing(ctx);
-                    LOGGER.info("org.weishe.weichat", "服务器客户端 send ping to server。");
+                    LOGGER.info(">>>>>>>>>>>>>>>>服务器客户端 send ping to server。");
                     break;
                 default:
                     break;
@@ -80,8 +79,8 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Message> {
                 .channel().remoteAddress();
         String ip = insocket.getAddress().getHostAddress();
         int port = insocket.getPort();
-        LOGGER.info("org.weishe.weichat.msg", "receive msg from server port:" + port);
-        LOGGER.info("org.weishe.weichat.msg", "msgType:" + baseMsg.getMessageType());
+        LOGGER.info(">>>>>>>>>>>>>>>>>>>receive msg from server port: 【{}】" , port);
+        LOGGER.info(">>>>>>>>>>>>>>>>>>>msgType:【{}】", baseMsg.getMessageType());
         switch (baseMsg.getMessageType()) {
             case CHAT_MESSAGE:
                 LOGGER.info("org.weishe.weichat", "-------------聊天信息---------------");
@@ -152,7 +151,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Message> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
-        LOGGER.info("org.weishe.weichat", "发生异常了");
+        LOGGER.info(">>>>>>>>>>>>nettyClientHandler error:{}", cause.getMessage());
 
     }
 }

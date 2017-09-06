@@ -81,9 +81,9 @@ public class Session {
         }
 
         if (future.isSuccess()) {
-            LOGGER.info("org.weishe.weichat", "netty 成功关闭，准备重启!");
+            LOGGER.info(">>>>>>>>>>netty 成功关闭，准备重启!");
         } else {
-            LOGGER.info("org.weishe.weichat", "netty 关闭失败！ 准备重启!");
+            LOGGER.info(">>>>>>>>>>netty 关闭失败！ 准备重启!");
         }
         while (true) {
             // boolean r = reStart();
@@ -94,7 +94,7 @@ public class Session {
             }
             try {
                 Thread.sleep(1000);
-                LOGGER.info("org.weishe.weichat", "睡眠一会儿再重启！");
+                LOGGER.info(">>>>>>>>>>>>>>netty 睡眠一会儿再重启！");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -115,7 +115,7 @@ public class Session {
             protected void initChannel(SocketChannel socketChannel)
                     throws Exception {
 
-                LOGGER.info("org.weishe.weichat", "netty initChannel 调用了！");
+                LOGGER.info(">>>>>>>>>netty initChannel 调用了！");
                 socketChannel.pipeline().addLast("IdleStateHandler",
                         new IdleStateHandler(200, 100, 0));
 
@@ -145,15 +145,15 @@ public class Session {
                 socketChannel = (SocketChannel) future.channel();
                 // 登录认证
 //                auth();
-                LOGGER.info("org.weishe.weichat", "netty 通讯服务启动成功!");
+                LOGGER.info(">>>>>>>>>>>netty 通讯服务启动成功!");
                 return true;
             } else {
-                LOGGER.info("org.weishe.weichat", "netty 通讯服务启动失败!");
+                LOGGER.info(">>>>>>>>>>>netty 通讯服务启动失败!");
                 return false;
             }
         } catch (Exception e) {
-            LOGGER.info("org.weishe.weichat", "netty 通讯服务启动失败!");
-            LOGGER.info("org.weishe.weichat", e.getMessage());
+            LOGGER.info(">>>>>>>>>>>>>>>netty 通讯服务启动失败!");
+            LOGGER.info(">>>>>>>>>>>>>>>netty 通讯服务启动失败! {}", e.getMessage());
             e.printStackTrace();
             return false;
         }
