@@ -20,4 +20,6 @@ public interface TodoMapper {
     Todo getTodoById(int todoId);
 
     List<Todo> getAllTodoByToId(int userId, int fid);
+
+    List<Todo> getUnCompleteTodoByUserId(int userId);
 }

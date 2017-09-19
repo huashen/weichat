@@ -52,4 +52,12 @@ public interface TodoService {
      * @return
      */
     List<Todo> getAllTodoByToId(int userId, int fid);
+
+    /**
+     * 获取用户未完成的代办
+     *
+     * @param userId
+     * @return
+     */
+    List<Todo> getUnCompleteTodoByUserId(int userId);
 }

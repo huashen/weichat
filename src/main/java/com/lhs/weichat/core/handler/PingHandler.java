@@ -116,11 +116,6 @@ public class PingHandler extends SimpleChannelInboundHandler<PingMessage> {
         ReferenceCountUtil.release(message);
     }
 
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Msg.Message in = (Msg.Message) msg;
-        System.out.println(">>>>>ping Handler:" + msg);
-    }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

@@ -282,4 +282,9 @@ public class MsgHelper {
                 .setMessageType(Msg.MessageType.CHAT_MESSAGE).build();
         return m;
     }
+
+
+    public static Msg.Message newTodoListMessage(List<Todo> todos) {
+        return null;
+    }
 }

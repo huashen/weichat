@@ -32,10 +32,11 @@ public class MsgChatHandler extends SimpleChannelInboundHandler<Msg.Message> {
     @Autowired
     private AttachmentService attachmentService;
 
-    private final Logger logger = LoggerFactory.getLogger(MsgChatHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(MsgChatHandler.class);
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Msg.Message message) throws Exception {
+System.out.println(">>>>>msgChat channelRead0:" + message);
         switch (message.getMessageType()) {
             case CLIENT_LOGIN:
                 if (message.getClientLoginMessage() != null) {
@@ -131,6 +132,11 @@ public class MsgChatHandler extends SimpleChannelInboundHandler<Msg.Message> {
                 break;
         }
         ReferenceCountUtil.release(message);
+    }
+
+
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        logger.info("TcpServerHandler Connected from");
     }
 
     /**

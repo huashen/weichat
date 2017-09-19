@@ -51,4 +51,9 @@ public class ToServiceImpl implements TodoService {
     public List<Todo> getAllTodoByToId(int userId, int fid) {
         return todoMapper.getAllTodoByToId(userId, fid);
     }
+
+    @Override
+    public List<Todo> getUnCompleteTodoByUserId(int userId) {
+        return todoMapper.getUnCompleteTodoByUserId(userId);
+    }
 }

@@ -91,9 +91,9 @@ public class NettyServerBootstrap implements InitializingBean {
                 pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
                 pipeline.addLast("protobufEncoder", new ProtobufEncoder());
 
-//                p.addLast(msgChatHandler);
-//                pipeline.addLast(clientLoginHandler);
+                pipeline.addLast(clientLoginHandler);
                 pipeline.addLast(pingHandler);
+                pipeline.addLast(msgChatHandler);
             }
         });
 
