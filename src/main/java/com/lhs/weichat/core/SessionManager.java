@@ -15,6 +15,7 @@ import io.netty.channel.socket.SocketChannel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.net.InetSocketAddress;
@@ -52,9 +53,10 @@ public class SessionManager {
 
     private static Map<String, Channel> channelKeyMap = new ConcurrentHashMap<>();
 
-
+    @Value("${netty.server.ip}")
     private String ip;
 
+    @Value("${netty.server.port}")
     private int port;
 
     public static void add(String clientId, Session session) {
