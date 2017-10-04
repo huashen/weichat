@@ -283,6 +283,20 @@ public class MsgHelper {
         return m;
     }
 
+    public static Msg.Message newReceiptMessage(String uuid, int status) {
+        Msg.Message.Builder b = Msg.Message.newBuilder();
+
+        Msg.ReceiptMessage.Builder rb = Msg.ReceiptMessage.newBuilder();
+        rb.setStatus(status).setUuid(uuid);
+
+        Msg.ReceiptMessage rm = rb.build();
+
+        b.setMessageType(Msg.MessageType.RECEIPT);
+        b.setReceiptMessage(rm);
+        Msg.Message m = b.build();
+        return m;
+    }
+
 
     public static Msg.Message newTodoListMessage(List<Todo> todos) {
         return null;

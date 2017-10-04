@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lhs.weichat.mapper.ChatMessageMapper">
+    <sql id="weichat_chat_message_column">
+        id,
+        chat_group_id,
+        content,
+        content_type,
+        create_date,
+        discussion_group_id,
+        from_id,
+        status,
+        to_id,
+        transfer,
+        type,
+        uuid,
+        attachment_id
+    </sql>
+
+    <sql id="weichat_attachment_property">
+        #{id},
+        #{chatGroupId},
+        #{content},
+        #{contentType},
+        #{createDate},
+        #{discussionGroupId},
+        #{fromId},
+        #{status},
+        #{toId},
+        #{transfer},
+        #{transfer},
+        #{type},
+        #{uuid},
+        #{attachmentId}
+    </sql>
+
+    <resultMap type="ChatMessage" id="ChatMessageResult">
+        <result property="id" column="id"/>
+        <result property="chatGroupId" column="chat_group_id"/>
+        <result property="content" column="content"/>
+        <result property="contentType" column="content_type"/>
+        <result property="createDate" column="create_date"/>
+        <result property="discussionGroupId" column="discussion_group_id"/>
+        <result property="fromId" column="from_id"/>
+        <result property="status" column="status"/>
+        <result property="toId" column="to_id"/>
+        <result property="transfer" column="transfer"/>
+        <result property="type" column="type"/>
+        <result property="uuid" column="uuid"/>
+        <result property="attachmentId" column="attachment_id"/>
+    </resultMap>
+
+    <insert id="addChatMessage" parameterType="ChatMessage" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO t_user(<include refid="weichat_user_column"/>)
+        VALUE(<include refid="weichat_attachment_property"/>)
+    </insert>
+
+
+</mapper>

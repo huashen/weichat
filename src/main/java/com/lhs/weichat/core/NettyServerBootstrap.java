@@ -1,12 +1,17 @@
 package com.lhs.weichat.core;
 
 import com.lhs.weichat.core.bean.Msg;
+import com.lhs.weichat.core.handler.ChatHandler;
 import com.lhs.weichat.core.handler.ClientLoginHandler;
 import com.lhs.weichat.core.handler.MsgChatHandler;
 import com.lhs.weichat.core.handler.PingHandler;
 import com.lhs.weichat.service.ChatServerService;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -56,6 +61,9 @@ public class NettyServerBootstrap implements InitializingBean {
     private PingHandler pingHandler;
 
     @Autowired
+    private ChatHandler chatHandler;
+
+    @Autowired
     public NettyServerBootstrap(ChatServerService chatServerService) throws InterruptedException {
         this.chatServerService = chatServerService;
     }
@@ -75,17 +83,8 @@ public class NettyServerBootstrap implements InitializingBean {
             protected void initChannel(SocketChannel socketChannel) throws Exception {
                 ChannelPipeline pipeline = socketChannel.pipeline();
 
-//                socketChannel.pipeline().addLast(
-//                        new IdleStateHandler(200, 100, 0));
-//
-//                // decoded
-//                pipeline.addLast(new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
-//                pipeline.addLast(new ProtobufDecoder(Msg.Message.getDefaultInstance()));
-//                // encoded
-//                pipeline.addLast(new LengthFieldPrepender(4));
-//                pipeline.addLast(new ProtobufEncoder());
-
-
+                pipeline.addLast(
+                        new IdleStateHandler(200, 100, 0));
                 pipeline.addLast("frameDecoder",new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
                 pipeline.addLast("protobufDecoder", new ProtobufDecoder(Msg.Message.getDefaultInstance()));
                 pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
