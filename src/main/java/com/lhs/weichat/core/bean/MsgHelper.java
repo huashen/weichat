@@ -266,9 +266,9 @@ public class MsgHelper {
      * @return
      */
     public static Msg.Message newUUChatMessage(String uuid, int fromId, int toId,
-                                           String content, String token, boolean transfer, String date,
-                                           int id, int contentType, String fileGroupName, String path,
-                                           int status) {
+                                               String content, String token, boolean transfer, String date,
+                                               int id, int contentType, String fileGroupName, String path,
+                                               int status) {
         Msg.ChatMessage chatMessage = Msg.ChatMessage.newBuilder()
                 .setContent(content).setFromId(fromId).setToId(toId)
                 .setMsgType(ChatMessage.MSG_TYPE_UU).setToken(token)
@@ -300,5 +300,115 @@ public class MsgHelper {
 
     public static Msg.Message newTodoListMessage(List<Todo> todos) {
         return null;
+    }
+
+    public static Msg.Message newChatMessageListMessage(List<ChatMessage> messages) {
+        Msg.Message.Builder b = Msg.Message.newBuilder();
+        if (messages != null) {
+
+            for (ChatMessage ms : messages) {
+                Attachment a = ms.getAttachment();
+                String path = "";
+                String fileGroupName = "";
+                if (a != null) {
+                    fileGroupName = a.getGroupName();
+                    path = a.getPath();
+                }
+                Msg.ChatMessage chatMessage = Msg.ChatMessage.newBuilder()
+                        .setContent(ms.getContent()).setFromId(ms.getFromId())
+                        .setToId(ms.getToId()).setMsgType(ms.getMsgType())
+                        .setDate(ms.getDate().getTime() + "")
+                        .setChatMessageId(ms.getId()).setToken(ms.getToken())
+                        .setFileGroupName(fileGroupName).setFilePath(path)
+                        .setContentType(ms.getContentType()).setTransfer(false)
+                        .setChatGroupId(ms.getChatGroupId())
+                        .setUuid(ms.getUuid()).setStatus(ms.getStatus())
+                        .setDiscussionGroupId(ms.getDiscussionGroupId())
+                        .setMsgType(ms.getMsgType()).build();
+                b.addChatMessageListMessage(chatMessage);
+            }
+        }
+        b.setMessageType(Msg.MessageType.CHAT_MESSAGE_LIST);
+        Msg.Message m = b.build();
+        return m;
+    }
+
+    /**
+     * 聊天群
+     *
+     * @param chatGroup
+     * @return
+     */
+    public static Msg.Message newChatGroupListMessage(List<ChatGroup> chatGroup) {
+        Msg.Message.Builder b = Msg.Message.newBuilder();
+        if (chatGroup != null) {
+            int index = 0;
+            for (ChatGroup fg : chatGroup) {
+                Msg.ChatGroup.Builder gb = Msg.ChatGroup.newBuilder();
+
+                gb.setId(fg.getId());
+                gb.setName(fg.getName());
+                gb.setSlogan(fg.getSlogan() + "");
+                Msg.ChatGroup g = gb.build();
+                b.addChatGroupListMessage(index, g);
+                index++;
+            }
+        }
+        b.setMessageType(Msg.MessageType.CHAT_GROUP_LIST);
+        Msg.Message m = b.build();
+        return m;
+    }
+
+    /**
+     * 讨论组
+     *
+     * @return
+     */
+    public static Msg.Message newDiscussionGroupListMessage(
+            List<DiscussionGroup> dGroup) {
+        Msg.Message.Builder b = Msg.Message.newBuilder();
+        if (dGroup != null) {
+            int index = 0;
+            for (DiscussionGroup fg : dGroup) {
+                Msg.DiscussionGroup.Builder gb = Msg.DiscussionGroup
+                        .newBuilder();
+                gb.setId(fg.getId());
+                gb.setName(fg.getName());
+                Msg.DiscussionGroup g = gb.build();
+                b.addDiscussionGroupListMessage(index, g);
+                index++;
+            }
+        }
+        b.setMessageType(Msg.MessageType.DISCUSSION_GROUP_LIST);
+        Msg.Message m = b.build();
+        return m;
+    }
+
+    public static Msg.Message newUserListMessage(List<User> relateUser) {
+        Msg.Message.Builder b = Msg.Message.newBuilder();
+        if (relateUser != null) {
+            int index = 0;
+            for (User u : relateUser) {
+                Msg.User.Builder gb = Msg.User.newBuilder();
+                gb.setId(u.getId());
+                gb.setName(u.getNickName());
+                gb.setAccount(u.getAccount());
+//                if (u.getAvatar() != null) {
+//                    gb.setAvatarPath(u.getAvatar().getGroupName() + "#"
+//                            + u.getAvatar().getPath());
+//                } else {
+//                    gb.setAvatarPath("");
+//                }
+                gb.setBirthday(StringUtils.getDateString(u.getBirthday()));
+                gb.setGender(u.getGender());
+                gb.setSignature(u.getSignature() + "");
+                Msg.User g = gb.build();
+                b.addUserListMessage(index, g);
+                index++;
+            }
+        }
+        b.setMessageType(Msg.MessageType.USER_LIST);
+        Msg.Message m = b.build();
+        return m;
     }
 }

@@ -1,5 +1,6 @@
 package com.lhs.weichat.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,10 @@ import java.util.Date;
  * @author chenbiao
  *
  */
-public class DiscussionGroup {
+public class DiscussionGroup implements Serializable {
+
+	private Integer id;
+
 	/**
 	 * 讨论组名称
 	 */
@@ -23,6 +27,14 @@ public class DiscussionGroup {
 	 * 创建者
 	 */
 	private User createBy;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;

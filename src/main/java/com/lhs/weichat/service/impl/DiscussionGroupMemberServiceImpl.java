@@ -1,5 +1,6 @@
 package com.lhs.weichat.service.impl;
 
+import com.lhs.weichat.bean.DiscussionGroup;
 import com.lhs.weichat.bean.DiscussionGroupMember;
 import com.lhs.weichat.mapper.DiscussionGroupMemberMapper;
 import com.lhs.weichat.service.DiscussionGroupMemberService;
@@ -23,5 +24,10 @@ public class DiscussionGroupMemberServiceImpl implements DiscussionGroupMemberSe
     @Override
     public List<DiscussionGroupMember> getUnshieldMemberByDiscussionGroupId(int discussionGroupId) {
         return discussionGroupMemberMapper.getUnshieldMemberByDiscussionGroupId(discussionGroupId);
+    }
+
+    @Override
+    public List<DiscussionGroup> getDiscussionGroupByMemberId(int userId) {
+        return discussionGroupMemberMapper.getDiscussionGroupByMemberId(userId);
     }
 }

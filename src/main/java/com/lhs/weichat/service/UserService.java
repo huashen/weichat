@@ -39,4 +39,6 @@ public interface UserService {
      * @return
      */
     User getUserById(int userId);
+
+    List<User> getRelateUser(int userId);
 }

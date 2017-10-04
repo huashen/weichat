@@ -3,8 +3,10 @@ package com.lhs.weichat.core;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.handler.ChatHandler;
 import com.lhs.weichat.core.handler.ClientLoginHandler;
+import com.lhs.weichat.core.handler.ClientRequestHandler;
 import com.lhs.weichat.core.handler.MsgChatHandler;
 import com.lhs.weichat.core.handler.PingHandler;
+import com.lhs.weichat.core.handler.ServerLoginHandler;
 import com.lhs.weichat.service.ChatServerService;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -64,6 +66,12 @@ public class NettyServerBootstrap implements InitializingBean {
     private ChatHandler chatHandler;
 
     @Autowired
+    private ServerLoginHandler serverLoginHandler;
+
+    @Autowired
+    private ClientRequestHandler clientRequestHandler;
+
+    @Autowired
     public NettyServerBootstrap(ChatServerService chatServerService) throws InterruptedException {
         this.chatServerService = chatServerService;
     }
@@ -91,7 +99,10 @@ public class NettyServerBootstrap implements InitializingBean {
                 pipeline.addLast("protobufEncoder", new ProtobufEncoder());
 
                 pipeline.addLast(clientLoginHandler);
+                pipeline.addLast(serverLoginHandler);
                 pipeline.addLast(pingHandler);
+                pipeline.addLast(chatHandler);
+                pipeline.addLast(clientRequestHandler);
                 pipeline.addLast(msgChatHandler);
             }
         });

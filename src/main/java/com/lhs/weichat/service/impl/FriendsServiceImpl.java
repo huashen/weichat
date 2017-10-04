@@ -76,4 +76,9 @@ public class FriendsServiceImpl implements FriendsService {
     public Friends getFriendsByUserIdAndFriendsId(int userId, int friendsId) {
         return null;
     }
+
+    @Override
+    public List<FriendsGroup> getFriendsGroupByUserId(int userId) {
+        return null;
+    }
 }

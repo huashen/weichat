@@ -72,4 +72,6 @@ public interface FriendsService {
     void moveFriendsGroup(Friends f, FriendsGroup fg);
 
     Friends getFriendsByUserIdAndFriendsId(int userId, int friendsId);
+
+    List<FriendsGroup> getFriendsGroupByUserId(int userId);
 }
