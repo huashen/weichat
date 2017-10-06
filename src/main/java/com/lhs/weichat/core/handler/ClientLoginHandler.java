@@ -48,12 +48,12 @@ System.out.println(">>>>>ClientLoginHandler channelRead0:" + message);
                     Msg.MessageType.LOGIN_SUCCESS, "登录成功！");
             session.send(m);
             // 发送代办消息
-            List<Todo> todos = todoService.getUnCompleteTodoByUserId(message
-                    .getUserId());
-            if (todos != null && todos.size() > 0) {
-                Msg.Message m2 = MsgHelper.newTodoListMessage(todos);
-                session.send(m2);
-            }
+//            List<Todo> todos = todoService.getUnCompleteTodoByUserId(message
+//                    .getUserId());
+//            if (todos != null && todos.size() > 0) {
+//                Msg.Message m2 = MsgHelper.newTodoListMessage(todos);
+//                session.send(m2);
+//            }
         } else {
 
             Msg.Message rtMessage = MsgHelper.newResultMessage(

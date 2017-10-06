@@ -55,7 +55,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<ChatMessage> {
         if (sessionManager.clientAuth(msg.getFromId() + "", msg.getToken()) != null) {
             if (msg.isTransfer()) {
                 msg.setType(ChatMessage.TYPE_SEND);
-                msg = chatMessageService.addChatMessage(msg);
+//                msg = chatMessageService.addChatMessage(msg);
                 Msg.Message message = MsgHelper.newReceiptMessage(msg.getUuid(), ChatMessage.STATUS_SEND);
                 ctx.channel().writeAndFlush(message);
             }

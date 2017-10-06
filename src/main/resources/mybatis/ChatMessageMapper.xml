@@ -53,7 +53,7 @@
     </resultMap>
 
     <insert id="addChatMessage" parameterType="ChatMessage" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO t_user(<include refid="weichat_user_column"/>)
+        INSERT INTO t_user(<include refid="weichat_chat_message_column"/>)
         VALUE(<include refid="weichat_attachment_property"/>)
     </insert>
 

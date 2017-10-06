@@ -166,7 +166,7 @@ public class Session {
         switch (msgType) {
             case ChatMessage.MSG_TYPE_UU:
                 msg = MsgHelper.newUUChatMessage(uuid, 1, toId,
-                        message, "123", true,
+                        message, "123456", true,
                         StringUtils.getCurrentStringDate(), 0, contentType,
                         fileGroupName, filePath, ChatMessage.STATUS_SEND);
                 break;
