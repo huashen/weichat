@@ -18,6 +18,7 @@ import com.lhs.weichat.service.FriendsService;
 import com.lhs.weichat.service.TodoService;
 import com.lhs.weichat.service.UserService;
 import com.lhs.weichat.utils.StringUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
@@ -35,6 +36,7 @@ import java.util.List;
  * @author longhuashen
  * @since 17/10/4
  */
+@ChannelHandler.Sharable
 @Component
 public class ClientRequestHandler extends SimpleChannelInboundHandler<ClientRequestMessage> {
 

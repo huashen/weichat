@@ -144,7 +144,7 @@ public class Session {
             if (future.isSuccess()) {
                 socketChannel = (SocketChannel) future.channel();
                 // 登录认证
-//                auth();
+                auth();
                 LOGGER.info(">>>>>>>>>>>netty 通讯服务启动成功!");
                 return true;
             } else {
@@ -193,8 +193,8 @@ public class Session {
         Msg.Message loginMsg = Msg.Message
                 .newBuilder()
                 .setClientLoginMessage(
-                        Msg.ClientLoginMessage.newBuilder().setToken(token)
-                                .setUserId(this.user.getId()).build())
+                        Msg.ClientLoginMessage.newBuilder().setToken("123456")
+                                .setUserId(1).build())
                 .setMessageType(Msg.MessageType.CLIENT_LOGIN).build();
         socketChannel.writeAndFlush(loginMsg);
     }

@@ -5,6 +5,7 @@ import com.lhs.weichat.core.SessionManager;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.bean.MsgHelper;
 import com.lhs.weichat.service.AttachmentService;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.ReferenceCountUtil;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
  * @author longhuashen
  * @since 17/10/5
  */
+@ChannelHandler.Sharable
 @Service
 public class FileUploadHandler extends SimpleChannelInboundHandler<Attachment> {
 
@@ -32,6 +34,7 @@ public class FileUploadHandler extends SimpleChannelInboundHandler<Attachment> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Attachment msg) throws Exception {
+        System.out.println(">>>>>FileUploadHandler channelRead0:" + msg);
         if (sessionManager.clientAuth(msg.getUserId() + "", msg.getToken()) != null) {
             attachmentService.saveAttachment(msg);
         } else {

@@ -79,7 +79,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Message> {
                 .channel().remoteAddress();
         String ip = insocket.getAddress().getHostAddress();
         int port = insocket.getPort();
-        LOGGER.info(">>>>>>>>>>>>>>>>>>>receive msg from server port: 【{}】" , port);
+        LOGGER.info(">>>>>>>>>>>>>>>>>>>receive msg from server ip:【{}】 port: 【{}】" , ip, port);
         LOGGER.info(">>>>>>>>>>>>>>>>>>>msgType:【{}】", baseMsg.getMessageType());
         switch (baseMsg.getMessageType()) {
             case CHAT_MESSAGE:

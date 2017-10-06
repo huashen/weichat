@@ -39,6 +39,7 @@ public class ClientLoginHandler extends SimpleChannelInboundHandler<ClientLoginM
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, ClientLoginMessage message) throws Exception {
+System.out.println(">>>>>ClientLoginHandler channelRead0:" + message);
         Session session = sessionManager.clientLoginAuth(channelHandlerContext,
                 message.getToken(), message.getUserId());
         if (session != null) {
@@ -62,5 +63,9 @@ public class ClientLoginHandler extends SimpleChannelInboundHandler<ClientLoginM
             channelHandlerContext.channel().close();
         }
         ReferenceCountUtil.release(message);
+    }
+
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        logger.info("ClientLoginHandler Connected from");
     }
 }

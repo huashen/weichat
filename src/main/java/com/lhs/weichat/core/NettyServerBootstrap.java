@@ -97,17 +97,17 @@ public class NettyServerBootstrap implements InitializingBean {
 
                 pipeline.addLast(
                         new IdleStateHandler(200, 100, 0));
-                pipeline.addLast("frameDecoder",new LengthFieldBasedFrameDecoder(1048576, 0, 4, 0, 4));
+                pipeline.addLast("frameDecoder",new LengthFieldBasedFrameDecoder(1024, 0, 4, 0, 4));
                 pipeline.addLast("protobufDecoder", new ProtobufDecoder(Msg.Message.getDefaultInstance()));
                 pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
                 pipeline.addLast("protobufEncoder", new ProtobufEncoder());
 
+                pipeline.addLast(msgChatHandler);
                 pipeline.addLast(clientLoginHandler);
                 pipeline.addLast(serverLoginHandler);
                 pipeline.addLast(pingHandler);
                 pipeline.addLast(chatHandler);
                 pipeline.addLast(clientRequestHandler);
-                pipeline.addLast(msgChatHandler);
                 pipeline.addLast(fileUploadHandler);
             }
         });
