@@ -5,22 +5,46 @@ import java.util.Date;
 
 public class AppVersion implements Serializable {
 
-    private int id;
+    private Integer id;
 
-    private int versionCode;
-
-    private String downloadUrl;
+    private String versionCode;
 
     private Date createTime;
 
     private Date publishTime;
 
-    public int getVersionCode() {
+    private String downloadUrl;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getVersionCode() {
         return versionCode;
     }
 
-    public void setVersionCode(int versionCode) {
-        this.versionCode = versionCode;
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode == null ? null : versionCode.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
     }
 
     public String getDownloadUrl() {
@@ -28,6 +52,6 @@ public class AppVersion implements Serializable {
     }
 
     public void setDownloadUrl(String downloadUrl) {
-        this.downloadUrl = downloadUrl;
+        this.downloadUrl = downloadUrl == null ? null : downloadUrl.trim();
     }
 }

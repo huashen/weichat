@@ -13,6 +13,19 @@ import java.util.List;
  */
 public interface ChatGroupMemberMapper {
 
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(ChatGroupMember record);
+
+    int insertSelective(ChatGroupMember record);
+
+    ChatGroupMember selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(ChatGroupMember record);
+
+    int updateByPrimaryKey(ChatGroupMember record);
+
+
     List<ChatGroup> getChatGroupByMember(int userId);
 
     List<ChatGroupMember> getChatGroupMemberByChatGroup(int chatGroupId);

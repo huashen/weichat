@@ -13,6 +13,19 @@ import java.util.List;
  */
 public interface DiscussionGroupMemberMapper {
 
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(DiscussionGroupMember record);
+
+    int insertSelective(DiscussionGroupMember record);
+
+    DiscussionGroupMember selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(DiscussionGroupMember record);
+
+    int updateByPrimaryKey(DiscussionGroupMember record);
+
+
     List<DiscussionGroupMember> getUnshieldMemberByDiscussionGroupId(int discussionGroupId);
 
     List<DiscussionGroup> getDiscussionGroupByMemberId(int userId);

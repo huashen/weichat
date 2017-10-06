@@ -12,6 +12,19 @@ import java.util.List;
  */
 public interface UserAuthTokenMapper {
 
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(UserAuthToken record);
+
+    int insertSelective(UserAuthToken record);
+
+    UserAuthToken selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(UserAuthToken record);
+
+    int updateByPrimaryKey(UserAuthToken record);
+
+
     UserAuthToken getUserAuthTokenByUserIdAndToken(int userId, String token);
 
     List<UserAuthToken> getUserAuthTokenByUserId(int userId);

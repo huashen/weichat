@@ -11,6 +11,20 @@ import com.lhs.weichat.bean.Attachment;
  */
 public interface AttachmentMapper {
 
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(Attachment record);
+
+    int insertSelective(Attachment record);
+
+    Attachment selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(Attachment record);
+
+    int updateByPrimaryKeyWithBLOBs(Attachment record);
+
+    int updateByPrimaryKey(Attachment record);
+
     Attachment saveAttachment(Attachment Attachment);
 
     Attachment getAttachmentByGroupNameAndPath(String groupName, String path);

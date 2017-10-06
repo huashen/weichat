@@ -1,14 +1,14 @@
 package com.lhs.weichat.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ *
  * 文件附件
- * 
- * @author chenbiao
  *
  */
-public class Attachment {
+public class Attachment implements Serializable {
 
 	public static final int TYPE_UNKNOWN = 0;// 未知文件类型
 

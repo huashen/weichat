@@ -3,29 +3,123 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.lhs.weichat.mapper.UserAuthTokenMapper">
-    <sql id="weichat_user_auth_token_column">
-        id,
-        client_id,
-        client_type,
-        create_date,
-        enable,
-        token,
-        user_id
-    </sql>
-
-    <resultMap type="UserAuthToken" id="BaseResultMap">
-        <result property="id" column="id"/>
-        <result property="clientId" column="client_id"/>
-        <result property="clientType" column="client_type"/>
-        <result property="createDate" column="create_date"/>
-        <result property="enable" column="enable"/>
-        <result property="token" column="token"/>
-        <result property="userId" column="user_id"/>
+    <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.UserAuthToken" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="client_id" property="clientId" jdbcType="VARCHAR" />
+        <result column="client_type" property="clientType" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="enable" property="enable" jdbcType="BIT" />
+        <result column="token" property="token" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
     </resultMap>
+    <sql id="Base_Column_List" >
+        id, client_id, client_type, create_date, enable, token, user_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_user_auth_token
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_user_auth_token
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.lhs.weichat.bean.UserAuthToken" >
+        insert into t_user_auth_token (id, client_id, client_type,
+        create_date, enable, token,
+        user_id)
+        values (#{id,jdbcType=INTEGER}, #{clientId,jdbcType=VARCHAR}, #{clientType,jdbcType=VARCHAR},
+        #{createDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=BIT}, #{token,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.UserAuthToken" >
+        insert into t_user_auth_token
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="clientId != null" >
+                client_id,
+            </if>
+            <if test="clientType != null" >
+                client_type,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="enable != null" >
+                enable,
+            </if>
+            <if test="token != null" >
+                token,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="clientId != null" >
+                #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null" >
+                #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null" >
+                #{enable,jdbcType=BIT},
+            </if>
+            <if test="token != null" >
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lhs.weichat.bean.UserAuthToken" >
+        update t_user_auth_token
+        <set >
+            <if test="clientId != null" >
+                client_id = #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="clientType != null" >
+                client_type = #{clientType,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enable != null" >
+                enable = #{enable,jdbcType=BIT},
+            </if>
+            <if test="token != null" >
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lhs.weichat.bean.UserAuthToken" >
+        update t_user_auth_token
+        set client_id = #{clientId,jdbcType=VARCHAR},
+        client_type = #{clientType,jdbcType=VARCHAR},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+        enable = #{enable,jdbcType=BIT},
+        token = #{token,jdbcType=VARCHAR},
+        user_id = #{userId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
     <select id="getUserAuthTokenByToken" parameterType="String" resultMap="BaseResultMap">
         SELECT
-        <include refid="weichat_user_auth_token_column"/>
+        <include refid="Base_Column_List"/>
         from t_user_auth_token
         where token = #{token}
     </select>

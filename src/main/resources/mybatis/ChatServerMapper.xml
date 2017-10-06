@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhs.weichat.mapper.ChatServerMapper" >
+  <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.ChatServer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="online" property="online" jdbcType="BIT" />
+    <result column="port" property="port" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ip, name, online, port
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chat_server
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_chat_server
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhs.weichat.bean.ChatServer" >
+    insert into t_chat_server (id, ip, name, 
+      online, port)
+    values (#{id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{online,jdbcType=BIT}, #{port,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatServer" >
+    insert into t_chat_server
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="online != null" >
+        online,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="online != null" >
+        #{online,jdbcType=BIT},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhs.weichat.bean.ChatServer" >
+    update t_chat_server
+    <set >
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="online != null" >
+        online = #{online,jdbcType=BIT},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhs.weichat.bean.ChatServer" >
+    update t_chat_server
+    set ip = #{ip,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      online = #{online,jdbcType=BIT},
+      port = #{port,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

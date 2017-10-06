@@ -13,6 +13,18 @@ import java.util.List;
  */
 public interface ChatGroupMapper {
 
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(ChatGroup record);
+
+    int insertSelective(ChatGroup record);
+
+    ChatGroup selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(ChatGroup record);
+
+    int updateByPrimaryKey(ChatGroup record);
+
     List<ChatGroup> search(String condition);
 
     ChatGroup addChatGroup(String name, User user);

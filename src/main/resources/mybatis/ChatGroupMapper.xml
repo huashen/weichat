@@ -3,5 +3,153 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.lhs.weichat.mapper.ChatGroupMapper">
-
+    <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.ChatGroup" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="account" property="account" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="slogan" property="slogan" jdbcType="VARCHAR" />
+        <result column="big_class_id" property="bigClassId" jdbcType="INTEGER" />
+        <result column="create_by_Id" property="createById" jdbcType="INTEGER" />
+        <result column="manager1_id" property="manager1Id" jdbcType="INTEGER" />
+        <result column="manager2_id" property="manager2Id" jdbcType="INTEGER" />
+        <result column="small_class_id" property="smallClassId" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, account, create_date, name, slogan, big_class_id, create_by_Id, manager1_id,
+        manager2_id, small_class_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from t_chat_group
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_chat_group
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.lhs.weichat.bean.ChatGroup" >
+        insert into t_chat_group (id, account, create_date,
+        name, slogan, big_class_id,
+        create_by_Id, manager1_id, manager2_id,
+        small_class_id)
+        values (#{id,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+        #{name,jdbcType=VARCHAR}, #{slogan,jdbcType=VARCHAR}, #{bigClassId,jdbcType=INTEGER},
+        #{createById,jdbcType=INTEGER}, #{manager1Id,jdbcType=INTEGER}, #{manager2Id,jdbcType=INTEGER},
+        #{smallClassId,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatGroup" >
+        insert into t_chat_group
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="account != null" >
+                account,
+            </if>
+            <if test="createDate != null" >
+                create_date,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="slogan != null" >
+                slogan,
+            </if>
+            <if test="bigClassId != null" >
+                big_class_id,
+            </if>
+            <if test="createById != null" >
+                create_by_Id,
+            </if>
+            <if test="manager1Id != null" >
+                manager1_id,
+            </if>
+            <if test="manager2Id != null" >
+                manager2_id,
+            </if>
+            <if test="smallClassId != null" >
+                small_class_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="account != null" >
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="slogan != null" >
+                #{slogan,jdbcType=VARCHAR},
+            </if>
+            <if test="bigClassId != null" >
+                #{bigClassId,jdbcType=INTEGER},
+            </if>
+            <if test="createById != null" >
+                #{createById,jdbcType=INTEGER},
+            </if>
+            <if test="manager1Id != null" >
+                #{manager1Id,jdbcType=INTEGER},
+            </if>
+            <if test="manager2Id != null" >
+                #{manager2Id,jdbcType=INTEGER},
+            </if>
+            <if test="smallClassId != null" >
+                #{smallClassId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lhs.weichat.bean.ChatGroup" >
+        update t_chat_group
+        <set >
+            <if test="account != null" >
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null" >
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="slogan != null" >
+                slogan = #{slogan,jdbcType=VARCHAR},
+            </if>
+            <if test="bigClassId != null" >
+                big_class_id = #{bigClassId,jdbcType=INTEGER},
+            </if>
+            <if test="createById != null" >
+                create_by_Id = #{createById,jdbcType=INTEGER},
+            </if>
+            <if test="manager1Id != null" >
+                manager1_id = #{manager1Id,jdbcType=INTEGER},
+            </if>
+            <if test="manager2Id != null" >
+                manager2_id = #{manager2Id,jdbcType=INTEGER},
+            </if>
+            <if test="smallClassId != null" >
+                small_class_id = #{smallClassId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lhs.weichat.bean.ChatGroup" >
+        update t_chat_group
+        set account = #{account,jdbcType=VARCHAR},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+        name = #{name,jdbcType=VARCHAR},
+        slogan = #{slogan,jdbcType=VARCHAR},
+        big_class_id = #{bigClassId,jdbcType=INTEGER},
+        create_by_Id = #{createById,jdbcType=INTEGER},
+        manager1_id = #{manager1Id,jdbcType=INTEGER},
+        manager2_id = #{manager2Id,jdbcType=INTEGER},
+        small_class_id = #{smallClassId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

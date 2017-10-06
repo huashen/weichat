@@ -52,4 +52,160 @@
     <select id="getAttachmentById" parameterType="int" resultMap="AttachmentResult">
         SELECT <include refid="weichat_attachment_column"/> FROM t_attachment WHERE id =#{id}
     </select>
+
+    <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.Attachment" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="size" property="size" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="token" property="token" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.lhs.weichat.bean.Attachment" extends="BaseResultMap" >
+        <result column="path" property="path" jdbcType="LONGVARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, name, group_name, type, size, user_id, token, create_time
+    </sql>
+    <sql id="Blob_Column_List" >
+        path
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from t_attachment
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from t_attachment
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.lhs.weichat.bean.Attachment" >
+        insert into t_attachment (id, name, group_name,
+        type, size, user_id,
+        token, create_time, path
+        )
+        values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+        #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{path,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.Attachment" >
+        insert into t_attachment
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="groupName != null" >
+                group_name,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="size != null" >
+                size,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="token != null" >
+                token,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="path != null" >
+                path,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="groupName != null" >
+                #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="size != null" >
+                #{size,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="token != null" >
+                #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="path != null" >
+                #{path,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lhs.weichat.bean.Attachment" >
+        update t_attachment
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="groupName != null" >
+                group_name = #{groupName,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null" >
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="size != null" >
+                size = #{size,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="token != null" >
+                token = #{token,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="path != null" >
+                path = #{path,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lhs.weichat.bean.Attachment" >
+        update t_attachment
+        set name = #{name,jdbcType=VARCHAR},
+        group_name = #{groupName,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
+        size = #{size,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=INTEGER},
+        token = #{token,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        path = #{path,jdbcType=LONGVARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lhs.weichat.bean.Attachment" >
+        update t_attachment
+        set name = #{name,jdbcType=VARCHAR},
+        group_name = #{groupName,jdbcType=VARCHAR},
+        type = #{type,jdbcType=INTEGER},
+        size = #{size,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=INTEGER},
+        token = #{token,jdbcType=VARCHAR},
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

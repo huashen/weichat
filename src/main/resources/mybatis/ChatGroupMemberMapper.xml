@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lhs.weichat.mapper.ChatGroupMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.ChatGroupMember" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="remark_name" property="remarkName" jdbcType="VARCHAR" />
+    <result column="shield" property="shield" jdbcType="BIT" />
+    <result column="chat_group_id" property="chatGroupId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, remark_name, shield, chat_group_id, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chat_group_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_chat_group_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhs.weichat.bean.ChatGroupMember" >
+    insert into t_chat_group_member (id, remark_name, shield, 
+      chat_group_id, user_id)
+    values (#{id,jdbcType=INTEGER}, #{remarkName,jdbcType=VARCHAR}, #{shield,jdbcType=BIT}, 
+      #{chatGroupId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatGroupMember" >
+    insert into t_chat_group_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="remarkName != null" >
+        remark_name,
+      </if>
+      <if test="shield != null" >
+        shield,
+      </if>
+      <if test="chatGroupId != null" >
+        chat_group_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="remarkName != null" >
+        #{remarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="shield != null" >
+        #{shield,jdbcType=BIT},
+      </if>
+      <if test="chatGroupId != null" >
+        #{chatGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhs.weichat.bean.ChatGroupMember" >
+    update t_chat_group_member
+    <set >
+      <if test="remarkName != null" >
+        remark_name = #{remarkName,jdbcType=VARCHAR},
+      </if>
+      <if test="shield != null" >
+        shield = #{shield,jdbcType=BIT},
+      </if>
+      <if test="chatGroupId != null" >
+        chat_group_id = #{chatGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhs.weichat.bean.ChatGroupMember" >
+    update t_chat_group_member
+    set remark_name = #{remarkName,jdbcType=VARCHAR},
+      shield = #{shield,jdbcType=BIT},
+      chat_group_id = #{chatGroupId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

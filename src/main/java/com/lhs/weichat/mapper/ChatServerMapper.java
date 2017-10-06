@@ -12,6 +12,18 @@ import java.util.List;
  */
 public interface ChatServerMapper {
 
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(ChatServer record);
+
+    int insertSelective(ChatServer record);
+
+    ChatServer selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(ChatServer record);
+
+    int updateByPrimaryKey(ChatServer record);
+
 
     List<ChatServer> getOnlineServer();
 
@@ -19,5 +31,4 @@ public interface ChatServerMapper {
 
     void update(ChatServer server);
 
-    void insert(ChatServer server);
 }
