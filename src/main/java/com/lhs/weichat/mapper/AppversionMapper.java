@@ -2,7 +2,7 @@ package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.AppVersion;
 
-public interface AppVersionMapper {
+public interface AppversionMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(AppVersion record);
@@ -16,4 +16,6 @@ public interface AppVersionMapper {
     int updateByPrimaryKeyWithBLOBs(AppVersion record);
 
     int updateByPrimaryKey(AppVersion record);
+
+    AppVersion getNewestVersion();
 }
