@@ -20,7 +20,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public Attachment getAttachmentById(int id) {
-        return attachmentMapper.getAttachmentById(id);
+        return attachmentMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -29,16 +29,21 @@ public class AttachmentServiceImpl implements AttachmentService {
     }
 
     @Override
-    public Attachment saveAttachment(Attachment Attachment) {
-        if (Attachment == null || Attachment.getGroupName() == null || Attachment.getGroupName().isEmpty()
-                || Attachment.getPath() == null || Attachment.getPath().isEmpty()) {
+    public Attachment saveAttachment(Attachment attachment) {
+        if (attachment == null || attachment.getGroupName() == null || attachment.getGroupName().isEmpty()
+                || attachment.getPath() == null || attachment.getPath().isEmpty()) {
             return null;
         }
 
-        Attachment a = getAttachmentByGroupNameAndPath(Attachment.getGroupName(), Attachment.getPath());
+        Attachment a = this.getAttachmentByGroupNameAndPath(attachment.getGroupName(), attachment.getPath());
         if(a != null) {
             return a;
         }
-        return attachmentMapper.saveAttachment(Attachment);
+
+        int num = attachmentMapper.insertSelective(attachment);
+        if (num < 1) {
+            return null;
+        }
+        return attachmentMapper.selectByPrimaryKey(attachment.getId());
     }
 }

@@ -28,8 +28,8 @@ public interface AttachmentService {
 
     /**
      * 保存附件
-     * @param Attachment
+     * @param attachment
      * @return
      */
-    Attachment saveAttachment(Attachment Attachment);
+    Attachment saveAttachment(Attachment attachment);
 }

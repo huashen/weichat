@@ -38,21 +38,6 @@
         <result property="gender" column="gender"/>
     </resultMap>
 
-    <!-- 保存文件 -->
-    <insert id="saveAttachment" parameterType="Attachment" keyColumn="id" keyProperty="id">
-        INSERT INTO t_attachment(<include refid="weichat_attachment_column"/>) VALUE(<include refid="weichat_attachment_property"/>)
-    </insert>
-
-    <!-- 根据groupName和path查找文件 -->
-    <select id="getAttachmentByGroupNameAndPath" parameterType="Attachment" resultMap="AttachmentResult">
-        SELECT <include refid="weichat_attachment_column"/> FROM t_attachment WHERE group_name =#{groupName} and path =#{path}
-    </select>
-
-    <!-- 根据id查找文件 -->
-    <select id="getAttachmentById" parameterType="int" resultMap="AttachmentResult">
-        SELECT <include refid="weichat_attachment_column"/> FROM t_attachment WHERE id =#{id}
-    </select>
-
     <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.Attachment" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="name" property="name" jdbcType="VARCHAR" />
@@ -94,7 +79,7 @@
         #{token,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{path,jdbcType=LONGVARCHAR}
         )
     </insert>
-    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.Attachment" >
+    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.Attachment" useGeneratedKeys="true" keyProperty="id">
         insert into t_attachment
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -208,4 +193,12 @@
         create_time = #{createTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="getAttachmentByGroupNameAndPath" resultMap="AttachmentResult">
+        SELECT
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        FROM t_attachment WHERE group_name =#{groupName, jdbcType=VARCHAR} and path =#{path, jdbcType=VARCHAR}
+    </select>
 </mapper>

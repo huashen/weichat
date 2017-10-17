@@ -2,6 +2,7 @@ package com.lhs.weichat.mapper;
 
 
 import com.lhs.weichat.bean.Attachment;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * AttachmentMapper
@@ -25,9 +26,5 @@ public interface AttachmentMapper {
 
     int updateByPrimaryKey(Attachment record);
 
-    Attachment saveAttachment(Attachment Attachment);
-
-    Attachment getAttachmentByGroupNameAndPath(String groupName, String path);
-
-    Attachment getAttachmentById(int id);
+    Attachment getAttachmentByGroupNameAndPath(@Param("groupName") String groupName, @Param("path") String path);
 }
