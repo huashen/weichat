@@ -3,60 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.lhs.weichat.mapper.ChatMessageMapper">
-    <sql id="weichat_chat_message_column">
-        id,
-        chat_group_id,
-        content,
-        content_type,
-        create_date,
-        discussion_group_id,
-        from_id,
-        status,
-        to_id,
-        transfer,
-        type,
-        uuid,
-        attachment_id
-    </sql>
-
-    <sql id="weichat_attachment_property">
-        #{id},
-        #{chatGroupId},
-        #{content},
-        #{contentType},
-        #{createDate},
-        #{discussionGroupId},
-        #{fromId},
-        #{status},
-        #{toId},
-        #{transfer},
-        #{transfer},
-        #{type},
-        #{uuid},
-        #{attachmentId}
-    </sql>
-
-    <resultMap type="ChatMessage" id="ChatMessageResult">
-        <result property="id" column="id"/>
-        <result property="chatGroupId" column="chat_group_id"/>
-        <result property="content" column="content"/>
-        <result property="contentType" column="content_type"/>
-        <result property="createDate" column="create_date"/>
-        <result property="discussionGroupId" column="discussion_group_id"/>
-        <result property="fromId" column="from_id"/>
-        <result property="status" column="status"/>
-        <result property="toId" column="to_id"/>
-        <result property="transfer" column="transfer"/>
-        <result property="type" column="type"/>
-        <result property="uuid" column="uuid"/>
-        <result property="attachmentId" column="attachment_id"/>
-    </resultMap>
-
-    <insert id="addChatMessage" parameterType="ChatMessage" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO t_user(<include refid="weichat_chat_message_column"/>)
-        VALUE(<include refid="weichat_attachment_property"/>)
-    </insert>
-
     <resultMap id="BaseResultMap" type="com.lhs.weichat.bean.ChatMessage" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="chat_group_id" property="chatGroupId" jdbcType="INTEGER" />
@@ -99,7 +45,7 @@
         #{toId,jdbcType=INTEGER}, #{transfer,jdbcType=BIT}, #{type,jdbcType=INTEGER}, #{uuid,jdbcType=VARCHAR},
         #{attachmentId,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatMessage" >
+    <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatMessage" useGeneratedKeys="true" keyProperty="id">
         insert into t_chat_message
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -252,5 +198,20 @@
         attachment_id = #{attachmentId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="getAllChatMessageByToId" resultMap="Base_Column_List">
+        select
+        <include refid="Base_Column_List" />
+        from t_chat_message
+        where id > #{fromMessageId, jdbcType=VARCHAR}
+        and (
+          toId = ?
+        or
+          discussion_group_id in
+            <foreach close=")" collection="list" item="listItem" open="(" separator=",">
+              #{listItem}
+            </foreach>
+        )
+    </select>
 
 </mapper>

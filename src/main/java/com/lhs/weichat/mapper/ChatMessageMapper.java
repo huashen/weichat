@@ -1,6 +1,7 @@
 package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.ChatMessage;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,7 +26,5 @@ public interface ChatMessageMapper {
     int updateByPrimaryKey(ChatMessage record);
 
 
-    List<ChatMessage> getAllChatMessageByToId(int toId, int fromMessageId);
-
-    ChatMessage addChatMessage(ChatMessage chatMessage);
+    List<ChatMessage> getAllChatMessageByToId(@Param("toId") int toId, @Param("fromMessageId") int fromMessageId, @Param("list") List<Integer> discussionGroupList);
 }

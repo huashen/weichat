@@ -44,6 +44,6 @@ public class AttachmentServiceImpl implements AttachmentService {
         if (num < 1) {
             return null;
         }
-        return attachmentMapper.selectByPrimaryKey(attachment.getId());
+        return attachment;
     }
 }
