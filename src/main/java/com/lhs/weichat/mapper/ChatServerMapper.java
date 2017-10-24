@@ -1,6 +1,7 @@
 package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.ChatServer;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,8 +28,5 @@ public interface ChatServerMapper {
 
     List<ChatServer> getOnlineServer();
 
-    ChatServer getChatServerByIpAndPort(String ip, int port);
-
-    void update(ChatServer server);
-
+    ChatServer getChatServerByIpAndPort(@Param("ip") String ip, @Param("port") int port);
 }

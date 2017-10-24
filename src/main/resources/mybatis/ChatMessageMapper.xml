@@ -199,7 +199,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="getAllChatMessageByToId" resultMap="Base_Column_List">
+    <select id="getAllChatMessageByToId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from t_chat_message

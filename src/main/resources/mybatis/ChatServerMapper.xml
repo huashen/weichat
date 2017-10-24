@@ -27,7 +27,7 @@
     values (#{id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{online,jdbcType=BIT}, #{port,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatServer" >
+  <insert id="insertSelective" parameterType="com.lhs.weichat.bean.ChatServer" keyProperty="id" useGeneratedKeys="true">
     insert into t_chat_server
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -90,4 +90,19 @@
       port = #{port,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getOnlineServer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from t_chat_server
+    where online = 1
+  </select>
+
+  <select id="getChatServerByIpAndPort" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from t_chat_server
+    where ip = #{ip, jdbcType=VARCHAR} and port = #{port, jdbcType=INTEGER}
+    limit 1
+  </select>
 </mapper>

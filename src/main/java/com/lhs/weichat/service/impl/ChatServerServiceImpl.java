@@ -17,7 +17,7 @@ import java.util.List;
 @Service("chatServerService")
 public class ChatServerServiceImpl implements ChatServerService {
 
-//    @Autowired
+    @Autowired
     private ChatServerMapper chatServerMapper;
 
     @Override
@@ -32,29 +32,30 @@ public class ChatServerServiceImpl implements ChatServerService {
 
     @Override
     public void register(String ip, int port, String name) {
-//        ChatServer server = chatServerMapper.getChatServerByIpAndPort(ip, port);
-//        if(server != null && server.getId() > 0) {
-//            if(!server.isOnline())
-//                server.setOnLine(true);
-//                chatServerMapper.update(server);
-//            }
-//        }else {
-//            server = new ChatServer();
-//            server.setIp(ip);
-//            server.setPort(port);
-//            server.setName(name);
-//            server.setOnLine(true);
-//            chatServerMapper.insert(server);
-//        }
+        ChatServer server = chatServerMapper.getChatServerByIpAndPort(ip, port);
+        if (server != null) {
+            if (!server.isOnline()) {
+                server.setOnLine(true);
+            }
+            chatServerMapper.updateByPrimaryKey(server);
+        } else {
+            server = new ChatServer();
+            server.setIp(ip);
+            server.setPort(port);
+            server.setName(name);
+            server.setOnLine(true);
+            chatServerMapper.insertSelective(server);
+        }
     }
+
 
     @Override
     public void offline(String ip, int port) {
         ChatServer server = chatServerMapper.getChatServerByIpAndPort(ip, port);
-        if(server != null && server.getId() > 0) {
-            if(server.isOnline()) {
+        if (server != null && server.getId() > 0) {
+            if (server.isOnline()) {
                 server.setOnLine(false);
-                chatServerMapper.update(server);
+                chatServerMapper.updateByPrimaryKeySelective(server);
             }
         }
     }
