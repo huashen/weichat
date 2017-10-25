@@ -31,7 +31,8 @@ public interface ChatServerService {
 
     /**
      * 当服务器启动成功后将自己注册到系统中
-     * 1、如果数据库中存在该服务器则设置上线状态为true 2、如果不存在则插入，设置上线状态为true
+     * 1、如果数据库中存在该服务器则设置上线状态为true
+     * 2、如果不存在则插入，设置上线状态为true
      *
      * @param ip
      * @param port
