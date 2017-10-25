@@ -28,9 +28,7 @@ public interface FriendsMapper {
 
     List<Friends> getFriendsByUserId(int userId);
 
-    boolean isFriends(User user, User friends);
-
     Friends getFriendsByUserIdAndFriendsUserId(int userId, int friendId);
 
-    void saveFriend(Friends friends);
+    Friends getFriendsByUserIdAndFriendsId(int userId, int friendId);
 }

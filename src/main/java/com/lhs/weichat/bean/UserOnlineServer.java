@@ -35,4 +35,12 @@ public class UserOnlineServer {
 	 * 在线状态
 	 */
 	private int onlineStatus;
+
+	public int getOnlineStatus() {
+		return onlineStatus;
+	}
+
+	public void setOnlineStatus(int onlineStatus) {
+		this.onlineStatus = onlineStatus;
+	}
 }

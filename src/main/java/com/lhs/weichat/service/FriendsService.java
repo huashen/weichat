@@ -33,11 +33,11 @@ public interface FriendsService {
     /**
      * 判断是否好友
      *
-     * @param user
-     * @param friends
+     * @param userId
+     * @param friendId
      * @return
      */
-    boolean isFriends(User user, User friends);
+    boolean isFriends(Integer userId, Integer friendId);
 
     /**
      * 互加好友

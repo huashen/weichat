@@ -3,7 +3,10 @@ package com.lhs.weichat.service.impl;
 import com.lhs.weichat.bean.Friends;
 import com.lhs.weichat.bean.FriendsGroup;
 import com.lhs.weichat.bean.User;
+import com.lhs.weichat.bean.UserAuthToken;
+import com.lhs.weichat.bean.UserOnlineServer;
 import com.lhs.weichat.mapper.FriendsMapper;
+import com.lhs.weichat.mapper.UserAuthTokenMapper;
 import com.lhs.weichat.service.FriendsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,9 @@ public class FriendsServiceImpl implements FriendsService {
     @Autowired
     private FriendsMapper friendsMapper;
 
+    @Autowired
+    private UserAuthTokenMapper userAuthTokenMapper;
+
     @Override
     public List<Friends> getFriendsByUserId(int userId) {
         return friendsMapper.getFriendsByUserId(userId);
@@ -29,18 +35,22 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public void addFriend(User user, User friend) {
-        if (isFriends(user, friend)) {
+        if (isFriends(user.getId(), friend.getId())) {
             return;
         }
         Friends friends = new Friends();
         friends.setUser(user);
         friends.setFriend(friend);
-        friendsMapper.saveFriend(friends);
+        friendsMapper.insertSelective(friends);
     }
 
     @Override
-    public boolean isFriends(User user, User friends) {
-        return friendsMapper.isFriends(user, friends);
+    public boolean isFriends(Integer userId, Integer friendId) {
+        Friends f = friendsMapper.getFriendsByUserIdAndFriendsUserId(userId, friendId);
+        if (f != null && f.getId() > 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -63,8 +73,31 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public int getFriendsOnlineStatus(int userId, int FriendsId) {
-        return 0;
+    public int getFriendsOnlineStatus(int userId, int friendsId) {
+        int onlineStatus = UserOnlineServer.ONLINE_STATUS_OFFLINE;
+        // 1、是否被隐身
+        Friends f = friendsMapper.getFriendsByUserIdAndFriendsId(userId, friendsId);
+        if (f == null) {
+            // 此为异常情况
+            return UserOnlineServer.ONLINE_STATUS_OFFLINE;
+        }
+        if (f.isShield()) {
+            return UserOnlineServer.ONLINE_STATUS_OFFLINE;
+        } else {
+            // 先获取用户的授权token，然后去查看
+            List<UserAuthToken> list = userAuthTokenMapper.getUserAuthTokenByUserId(friendsId);
+            if (list != null) {
+                for (UserAuthToken t : list) {
+                    UserOnlineServer us = userAuthTokenMapper
+                            .getOnlineServerByToken(t.getId());
+                    if (us != null && onlineStatus > us.getOnlineStatus()) {
+                        // 获取最小的
+                        onlineStatus = us.getOnlineStatus();
+                    }
+                }
+            }
+        }
+        return onlineStatus;
     }
 
     @Override

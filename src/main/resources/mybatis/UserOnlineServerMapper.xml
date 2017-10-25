@@ -79,4 +79,11 @@
       user_auth_token_id = #{userAuthTokenId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getUserAuthTokenByToken" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_online_server
+    where user_auth_token_id = #{id,jdbcType=INTEGER}
+  </select>
 </mapper>
