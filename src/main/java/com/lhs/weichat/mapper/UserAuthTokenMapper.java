@@ -2,6 +2,7 @@ package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.UserAuthToken;
 import com.lhs.weichat.bean.UserOnlineServer;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,13 +27,11 @@ public interface UserAuthTokenMapper {
     int updateByPrimaryKey(UserAuthToken record);
 
 
-    UserAuthToken getUserAuthTokenByUserIdAndToken(int userId, String token);
+    UserAuthToken getUserAuthTokenByUserIdAndToken(@Param("userId") int userId, @Param("token") String token);
 
     List<UserAuthToken> getUserAuthTokenByUserId(int userId);
 
     UserAuthToken getUserAuthTokenByToken(String token);
-
-    void saveUserAuthToken(UserAuthToken userAuthToken);
 
     UserOnlineServer getOnlineServerByToken(int tokenId);
 }

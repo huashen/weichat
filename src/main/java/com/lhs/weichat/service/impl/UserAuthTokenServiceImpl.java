@@ -38,7 +38,7 @@ public class UserAuthTokenServiceImpl implements UserAuthTokenService {
         userAuthToken.setCreateDate(new Date());
         userAuthToken.setToken(token);
         userAuthToken.setClientType(clientType);
-        userAuthTokenMapper.saveUserAuthToken(userAuthToken);
+        userAuthTokenMapper.insertSelective(userAuthToken);
     }
 
     @Override
