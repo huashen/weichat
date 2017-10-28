@@ -1,6 +1,7 @@
 package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.UserOnlineServer;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * UserOnlineServerMapper
@@ -23,4 +24,12 @@ public interface UserOnlineServerMapper {
     int updateByPrimaryKey(UserOnlineServer record);
 
     UserOnlineServer getOnlineServerByToken(int userId);
+
+//    String hql = "  from  UserOnlineServer where userAuthTokenId =  ? and chatServerId=?";
+//    Query query = this.getSessionFactory().getCurrentSession()
+//            .createQuery(hql);
+//		query.setInteger(0, userAuthTokenId);
+//		query.setInteger(1, chatServerId);
+//		return (UserOnlineServer) query.uniqueResult();
+    UserOnlineServer getUserOnlineServer(@Param("userAuthTokenId") Integer id, @Param("chatServerId") int chatServerId);
 }

@@ -1,46 +1,54 @@
 package com.lhs.weichat.bean;
 
-/**
- * 用户所在线的服务器
- * 
- * @author chenbiao
- *
- */
-public class UserOnlineServer {
+import java.io.Serializable;
 
-	public final static int ONLINE_STATUS_WANNA_TALK = 1;// 求聊
+public class UserOnlineServer implements Serializable {
 
-	public final static int ONLINE_STATUS_ONLINE = 2;// 在线
+    public final static int ONLINE_STATUS_WANNA_TALK = 1;// 求聊
+    public final static int ONLINE_STATUS_ONLINE = 2;// 在线
+    public final static int ONLINE_STATUS_BUSY = 3;// 忙碌
+    public final static int ONLINE_STATUS_NO_DISTURB = 4;// 勿扰
+    public final static int ONLINE_STATUS_LEAVE = 5;// 离开
+    public final static int ONLINE_STATUS_INVISIBLE = 6;// 隐身
+    public final static int ONLINE_STATUS_OFFLINE = 7;// 离线
 
-	public final static int ONLINE_STATUS_BUSY = 3;// 忙碌
+    private Integer id;
 
-	public final static int ONLINE_STATUS_NO_DISTURB = 4;// 勿扰
+    private Integer onlineStatus;
 
-	public final static int ONLINE_STATUS_LEAVE = 5;// 离开
+    private Integer chatServerId;
 
-	public final static int ONLINE_STATUS_INVISIBLE = 6;// 隐身
+    private Integer userAuthTokenId;
 
-	public final static int ONLINE_STATUS_OFFLINE = 7;// 离线
+    public Integer getId() {
+        return id;
+    }
 
-	/**
-	 * id
-	 */
-	private int id;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	private UserAuthToken userAuthToken;
+    public Integer getOnlineStatus() {
+        return onlineStatus;
+    }
 
-	private ChatServer chatServer;
+    public void setOnlineStatus(Integer onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
 
-	/**
-	 * 在线状态
-	 */
-	private int onlineStatus;
+    public Integer getChatServerId() {
+        return chatServerId;
+    }
 
-	public int getOnlineStatus() {
-		return onlineStatus;
-	}
+    public void setChatServerId(Integer chatServerId) {
+        this.chatServerId = chatServerId;
+    }
 
-	public void setOnlineStatus(int onlineStatus) {
-		this.onlineStatus = onlineStatus;
-	}
+    public Integer getUserAuthTokenId() {
+        return userAuthTokenId;
+    }
+
+    public void setUserAuthTokenId(Integer userAuthTokenId) {
+        this.userAuthTokenId = userAuthTokenId;
+    }
 }

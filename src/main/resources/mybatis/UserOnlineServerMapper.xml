@@ -86,4 +86,12 @@
     from t_user_online_server
     where user_auth_token_id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="getUserOnlineServer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_online_server
+    where user_auth_token_id = #{userAuthTokenId,jdbcType=INTEGER}
+    and chat_server_id = #{chatServerId, jdbcType=INTEGER}
+  </select>
 </mapper>
