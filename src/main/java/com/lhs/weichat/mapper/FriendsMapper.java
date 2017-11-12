@@ -2,6 +2,7 @@ package com.lhs.weichat.mapper;
 
 import com.lhs.weichat.bean.Friends;
 import com.lhs.weichat.bean.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,5 +31,5 @@ public interface FriendsMapper {
 
     Friends getFriendsByUserIdAndFriendsUserId(int userId, int friendId);
 
-    Friends getFriendsByUserIdAndFriendsId(int userId, int friendId);
+    Friends getFriendsByUserIdAndFriendsId(@Param("userId") Integer userId, @Param("friendId") Integer friendId);
 }

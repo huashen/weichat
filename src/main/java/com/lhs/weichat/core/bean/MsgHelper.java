@@ -92,33 +92,27 @@ public class MsgHelper {
     }
 
     public static Msg.Message newChatMessage(ChatMessage ms) {
-        Attachment attachment = ms.getAttachment();
+        Attachment a = ms.getAttachment();
         String path = "";
         String fileGroupName = "";
-        if (attachment != null) {
-            fileGroupName = attachment.getGroupName();
-            path = attachment.getPath();
+        if (a != null) {
+            fileGroupName = a.getGroupName();
+            path = a.getPath();
         }
-
         Msg.ChatMessage chatMessage = Msg.ChatMessage.newBuilder()
-                .setContent(ms.getContent())
-                .setFromId(ms.getFromId())
-                .setToId(ms.getToId())
-                .setMsgType(ms.getMsgType())
+                .setContent(ms.getContent()).setFromId(ms.getFromId())
+                .setToId(ms.getToId()).setMsgType(ms.getMsgType())
                 .setDate(ms.getDate().getTime() + "")
-                .setChatMessageId(ms.getId())
+                .setChatMessageId(ms.getId()).setToken(ms.getToken())
                 .setChatGroupId(ms.getChatGroupId())
-                .setMsgType(ms.getMsgType())
-                .setUuid(ms.getUuid())
+                .setMsgType(ms.getMsgType()).setUuid(ms.getUuid())
                 .setStatus(ms.getStatus())
                 .setDiscussionGroupId(ms.getDiscussionGroupId())
-                .setFileGroupName(fileGroupName)
-                .setFilePath(path)
-                .setContentType(ms.getContentType())
-                .setTransfer(false)
-                .build();
+                .setFileGroupName(fileGroupName).setFilePath(path)
+                .setContentType(ms.getContentType()).setTransfer(false).build();
         Msg.Message.Builder b = Msg.Message.newBuilder();
-        Msg.Message m = b.setChatMessage(chatMessage).setMessageType(Msg.MessageType.CHAT_MESSAGE).build();
+        Msg.Message m = b.setChatMessage(chatMessage)
+                .setMessageType(Msg.MessageType.CHAT_MESSAGE).build();
         return m;
     }
 
@@ -181,21 +175,22 @@ public class MsgHelper {
             for (Friends f : friends) {
                 Msg.Friends.Builder fb = Msg.Friends.newBuilder();
 
-                fb.setAge(StringUtils.getAge(f.getFriend().getBirthday()));
+//                fb.setAge(StringUtils.getAge(f.getFriend().getBirthday()));
 //                if (f.getFriend().getAvatar() != null) {
 //                    fb.setAvatarPath(f.getFriend().getAvatar().getGroupName() + "#" + f.getFriend().getAvatar().getPath());
 //                } else {
 //                    fb.setAvatarPath("");
 //                }
-//                fb.setId(f.getId());
-//                String name = f.getFriend().getName();
+                fb.setAvatarPath("http://7xogjk.com1.z0.glb.clouddn.com/Fo6wxS7zzvGpwyAFhlpTUVirpOGh");
+                fb.setId(f.getId());
+                String name = "test";
 
-//                fb.setName(name);
-//                if (f.getRemarkName() == null || f.getRemarkName().isEmpty()) {
-//                    fb.setRemarkName(name);
-//                } else {
-//                    fb.setRemarkName(f.getRemarkName());
-//                }
+                fb.setName(name);
+                if (f.getRemarkName() == null || f.getRemarkName().isEmpty()) {
+                    fb.setRemarkName(name);
+                } else {
+                    fb.setRemarkName(f.getRemarkName());
+                }
 
                 boolean online = true;
                 if (f.getOnlineStatus() < UserOnlineServer.ONLINE_STATUS_INVISIBLE) {
@@ -204,17 +199,19 @@ public class MsgHelper {
 
                 fb.setOnline(online);
                 fb.setOnlineType(f.getOnlineType());
-                if (f.getFriend().getSignature() == null || f.getFriend().getSignature().isEmpty()) {
-                    fb.setSignature("好好学习，天天向上！");
-                } else {
-                    fb.setSignature(f.getFriend().getSignature());
-                }
-                fb.setUserId(f.getFriend().getId());
-                if (f.getFriendsGroup() != null) {
-                    fb.setFriendsGroupId(f.getFriendsGroup().getId());
-                } else {
-                    fb.setFriendsGroupId(0);
-                }
+                fb.setSignature("好好学习，天天向上！");
+//                if (f.getFriend().getSignature() == null || f.getFriend().getSignature().isEmpty()) {
+//                    fb.setSignature("好好学习，天天向上！");
+//                } else {
+//                    fb.setSignature(f.getFriend().getSignature());
+//                }
+                fb.setUserId(f.getUserId());
+//                if (f.getFriendsGroup() != null) {
+//                    fb.setFriendsGroupId(f.getFriendsGroup().getId());
+//                } else {
+//                    fb.setFriendsGroupId(0);
+//                }
+                fb.setFriendsGroupId(0);
                 Msg.Friends fm = fb.build();
                 b.addFriendsListMessage(index, fb.build());
                 index++;

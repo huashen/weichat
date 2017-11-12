@@ -136,11 +136,11 @@
         limit 1
     </select>
 
-    <select id="getUserAuthTokenByUserId" parameterType="java.lang.Integer">
+    <select id="getUserAuthTokenByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         from t_user_auth_token
-        and user_id = #{userId, jdbcType=INTEGER}
+        where user_id = #{userId, jdbcType=INTEGER}
     </select>
 
 </mapper>

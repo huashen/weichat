@@ -25,11 +25,5 @@ public interface UserOnlineServerMapper {
 
     UserOnlineServer getOnlineServerByToken(int userId);
 
-//    String hql = "  from  UserOnlineServer where userAuthTokenId =  ? and chatServerId=?";
-//    Query query = this.getSessionFactory().getCurrentSession()
-//            .createQuery(hql);
-//		query.setInteger(0, userAuthTokenId);
-//		query.setInteger(1, chatServerId);
-//		return (UserOnlineServer) query.uniqueResult();
     UserOnlineServer getUserOnlineServer(@Param("userAuthTokenId") Integer id, @Param("chatServerId") int chatServerId);
 }

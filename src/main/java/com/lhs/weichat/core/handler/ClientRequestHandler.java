@@ -40,7 +40,7 @@ import java.util.List;
 @Component
 public class ClientRequestHandler extends SimpleChannelInboundHandler<ClientRequestMessage> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServerLoginHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientRequestHandler.class);
 
     @Autowired
     private SessionManager sessionManager;
@@ -130,7 +130,7 @@ public class ClientRequestHandler extends SimpleChannelInboundHandler<ClientRequ
         //获取用户的好友列表
         List<Friends> friendsList = friendsService.getFriendsByUserId(msg.getUserId());
         for (Friends friends : friendsList) {
-            friends.setOnlineStatus(friendsService.getFriendsOnlineStatus(msg.getUserId(), friends.getFriend().getId()));
+            friends.setOnlineStatus(friendsService.getFriendsOnlineStatus(msg.getUserId(), friends.getId()));
         }
         return MsgHelper.newFriendsListMessage(friendsList);
     }

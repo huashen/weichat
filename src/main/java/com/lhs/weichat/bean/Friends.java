@@ -53,6 +53,13 @@ public class Friends {
 	 */
 	private int onlineType;
 
+
+	private Integer friendId;
+
+	private Integer friendsGroupId;
+
+	private Integer userId;
+
 	public int getId() {
 		return id;
 	}
@@ -123,5 +130,29 @@ public class Friends {
 
 	public void setOnlineType(int onlineType) {
 		this.onlineType = onlineType;
+	}
+
+	public Integer getFriendId() {
+		return friendId;
+	}
+
+	public void setFriendId(Integer friendId) {
+		this.friendId = friendId;
+	}
+
+	public Integer getFriendsGroupId() {
+		return friendsGroupId;
+	}
+
+	public void setFriendsGroupId(Integer friendsGroupId) {
+		this.friendsGroupId = friendsGroupId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 }

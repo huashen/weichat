@@ -3,8 +3,10 @@ package com.lhs.weichat.core.handler;
 import com.lhs.weichat.bean.ChatMessage;
 import com.lhs.weichat.core.SessionManager;
 import com.lhs.weichat.core.bean.ClientLoginMessage;
+import com.lhs.weichat.core.bean.ClientRequestMessage;
 import com.lhs.weichat.core.bean.Msg;
 import com.lhs.weichat.core.bean.PingMessage;
+import com.lhs.weichat.core.bean.ServerLoginMessage;
 import com.lhs.weichat.service.AttachmentService;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
@@ -71,24 +73,24 @@ System.out.println(">>>>>msgChat channelRead0:" + message);
                 }
                 break;
             case SERVER_LOGIN:
-//                if (message.getServerLoginMessage() != null) {
-//                    ServerLoginMessage message = new ServerLoginMessage();
-//                    message.setIp(message.getServerLoginMessage().getIp());
-//                    message.setPort(message.getServerLoginMessage().getPort());
-//                    channelHandlerContext.fireChannelRead(message);
-//                }
+                if (message.getServerLoginMessage() != null) {
+                    ServerLoginMessage serverLoginMessage = new ServerLoginMessage();
+                    serverLoginMessage.setIp(message.getServerLoginMessage().getIp());
+                    serverLoginMessage.setPort(message.getServerLoginMessage().getPort());
+                    ctx.fireChannelRead(message);
+                }
                 break;
             case SERVER_PING:
-//                if (message.getPingMessage() != null
-//                        && (message.getMessageType()
-//                        .equals(Msg.MessageType.SERVER_PING))) {
-//                    PingMessage message = new PingMessage();
-//                    message.setClientId(message.getPingMessage().getClientId());
-//                    message.setMessageType(Msg.MessageType.SERVER_PING);
-//                    channelHandlerContext.fireChannelRead(message);
-//                } else {
-//                    LOGGER.info("消息异常，client ping消息为null或者消息类型异常。");
-//                }
+                if (message.getPingMessage() != null
+                        && (message.getMessageType()
+                        .equals(Msg.MessageType.SERVER_PING))) {
+                    PingMessage pingMessage = new PingMessage();
+                    pingMessage.setClientId(message.getPingMessage().getClientId());
+                    pingMessage.setMessageType(Msg.MessageType.SERVER_PING);
+                    ctx.fireChannelRead(message);
+                } else {
+                    LOGGER.info("消息异常，client ping消息为null或者消息类型异常。");
+                }
                 break;
             case SERVER_PONG:
                 LOGGER.info("server pong消息不用处理");
@@ -120,13 +122,13 @@ System.out.println(">>>>>msgChat channelRead0:" + message);
                 break;
             case CLIENT_REQUEST:
                 if (message.getClientRequestMessage() != null) {
-//                    ClientRequestMessage r = new ClientRequestMessage();
-//                    r.setParameter(message.getClientRequestMessage().getParameter());
-//                    r.setRequestType(message.getClientRequestMessage()
-//                            .getRequestType());
-//                    r.setUserId(message.getClientRequestMessage().getUserId());
-//                    r.setToken(message.getClientRequestMessage().getToken());
-//                    channelHandlerContext.fireChannelRead(r);
+                    ClientRequestMessage r = new ClientRequestMessage();
+                    r.setParameter(message.getClientRequestMessage().getParameter());
+                    r.setRequestType(message.getClientRequestMessage()
+                            .getRequestType());
+                    r.setUserId(message.getClientRequestMessage().getUserId());
+                    r.setToken(message.getClientRequestMessage().getToken());
+                    ctx.fireChannelRead(r);
                 } else {
                     LOGGER.info("消息异常，ClientRequest message消息为null。");
                 }

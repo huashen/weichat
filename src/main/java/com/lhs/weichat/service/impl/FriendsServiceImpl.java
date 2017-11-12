@@ -7,6 +7,7 @@ import com.lhs.weichat.bean.UserAuthToken;
 import com.lhs.weichat.bean.UserOnlineServer;
 import com.lhs.weichat.mapper.FriendsMapper;
 import com.lhs.weichat.mapper.UserAuthTokenMapper;
+import com.lhs.weichat.mapper.UserOnlineServerMapper;
 import com.lhs.weichat.service.FriendsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Autowired
     private UserAuthTokenMapper userAuthTokenMapper;
+
+    @Autowired
+    private UserOnlineServerMapper userOnlineServerMapper;
 
     @Override
     public List<Friends> getFriendsByUserId(int userId) {
@@ -76,19 +80,19 @@ public class FriendsServiceImpl implements FriendsService {
     public int getFriendsOnlineStatus(int userId, int friendsId) {
         int onlineStatus = UserOnlineServer.ONLINE_STATUS_OFFLINE;
         // 1、是否被隐身
-        Friends f = friendsMapper.getFriendsByUserIdAndFriendsId(userId, friendsId);
-        if (f == null) {
+        Friends friends = friendsMapper.getFriendsByUserIdAndFriendsId(userId, friendsId);
+        if (friends == null) {
             // 此为异常情况
             return UserOnlineServer.ONLINE_STATUS_OFFLINE;
         }
-        if (f.isShield()) {
+        if (friends.isShield()) {
             return UserOnlineServer.ONLINE_STATUS_OFFLINE;
         } else {
             // 先获取用户的授权token，然后去查看
             List<UserAuthToken> list = userAuthTokenMapper.getUserAuthTokenByUserId(friendsId);
             if (list != null) {
                 for (UserAuthToken t : list) {
-                    UserOnlineServer us = userAuthTokenMapper
+                    UserOnlineServer us = userOnlineServerMapper
                             .getOnlineServerByToken(t.getId());
                     if (us != null && onlineStatus > us.getOnlineStatus()) {
                         // 获取最小的
@@ -107,7 +111,7 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public Friends getFriendsByUserIdAndFriendsId(int userId, int friendsId) {
-        return null;
+        return friendsMapper.getFriendsByUserIdAndFriendsId(userId, friendsId);
     }
 
     @Override

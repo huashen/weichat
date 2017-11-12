@@ -1,7 +1,7 @@
 package com.lhs.weichat.core.handler;
 
 import com.lhs.weichat.core.SessionManager;
-import com.lhs.weichat.core.bean.Msg;
+import com.lhs.weichat.core.bean.ServerLoginMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @ChannelHandler.Sharable
 @Component
-public class ServerLoginHandler extends SimpleChannelInboundHandler<Msg.ServerLoginMessage> {
+public class ServerLoginHandler extends SimpleChannelInboundHandler<ServerLoginMessage> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerLoginHandler.class);
 
@@ -27,7 +27,7 @@ public class ServerLoginHandler extends SimpleChannelInboundHandler<Msg.ServerLo
     private SessionManager sessionManager;
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Msg.ServerLoginMessage msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, ServerLoginMessage msg) throws Exception {
         LOGGER.info("服务器登录");
         if (!sessionManager.serverLogin(ctx)) {
             LOGGER.info("服务器登录失败，关闭。");

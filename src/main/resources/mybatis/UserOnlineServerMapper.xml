@@ -94,4 +94,12 @@
     where user_auth_token_id = #{userAuthTokenId,jdbcType=INTEGER}
     and chat_server_id = #{chatServerId, jdbcType=INTEGER}
   </select>
+
+  <select id="getOnlineServerByToken" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_online_server
+    where user_auth_token_id = #{userAuthTokenId,jdbcType=INTEGER}
+    limit 1
+  </select>
 </mapper>
