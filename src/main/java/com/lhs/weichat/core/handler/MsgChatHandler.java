@@ -146,7 +146,7 @@ System.out.println(">>>>>msgChat channelRead0:" + message);
         ReferenceCountUtil.release(message);
     }
 
-
+    @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         LOGGER.info("MsgChatHandler Connected from");
     }

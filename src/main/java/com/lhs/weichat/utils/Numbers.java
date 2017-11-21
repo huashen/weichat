@@ -5,25 +5,25 @@ import java.util.Map;
 
 public class Numbers {
 
-	final static char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
+	final static char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
 			'9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
 			'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
 			'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
 			'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
 			'Z' };
 
-	final static Map<Character, Integer> digitMap = new HashMap<Character, Integer>();
+	final static Map<Character, Integer> DIGIT_MAP = new HashMap<Character, Integer>();
 
 	static {
-		for (int i = 0; i < digits.length; i++) {
-			digitMap.put(digits[i], (int) i);
+		for (int i = 0; i < DIGITS.length; i++) {
+			DIGIT_MAP.put(DIGITS[i], (int) i);
 		}
 	}
 
 	/**
 	 * 支持的最大进制数
 	 */
-	public static final int MAX_RADIX = digits.length;
+	public static final int MAX_RADIX = DIGITS.length;
 
 	/**
 	 * 支持的最小进制数
@@ -38,10 +38,12 @@ public class Numbers {
 	 * @return
 	 */
 	public static String toString(long i, int radix) {
-		if (radix < MIN_RADIX || radix > MAX_RADIX)
+		if (radix < MIN_RADIX || radix > MAX_RADIX) {
 			radix = 10;
-		if (radix == 10)
+		}
+		if (radix == 10) {
 			return Long.toString(i);
+		}
 
 		final int size = 65;
 		int charPos = 64;
@@ -54,10 +56,10 @@ public class Numbers {
 		}
 
 		while (i <= -radix) {
-			buf[charPos--] = digits[(int) (-(i % radix))];
+			buf[charPos--] = DIGITS[(int) (-(i % radix))];
 			i = i / radix;
 		}
-		buf[charPos] = digits[(int) (-i)];
+		buf[charPos] = DIGITS[(int) (-i)];
 
 		if (negative) {
 			buf[--charPos] = '-';
@@ -106,8 +108,9 @@ public class Numbers {
 				if (firstChar == '-') {
 					negative = true;
 					limit = Long.MIN_VALUE;
-				} else if (firstChar != '+')
+				} else if (firstChar != '+') {
 					throw forInputString(s);
+				}
 
 				if (len == 1) {
 					throw forInputString(s);
@@ -116,7 +119,7 @@ public class Numbers {
 			}
 			multmin = limit / radix;
 			while (i < len) {
-				digit = digitMap.get(s.charAt(i++));
+				digit = DIGIT_MAP.get(s.charAt(i++));
 				if (digit == null) {
 					throw forInputString(s);
 				}

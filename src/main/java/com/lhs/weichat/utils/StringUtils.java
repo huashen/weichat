@@ -36,7 +36,7 @@ public class StringUtils {
         return Days.daysBetween(new DateTime(birthday), nowTime).getDays();
     }
 
-    private final static Pattern emailer = Pattern
+    private final static Pattern EMAILER = Pattern
             .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
     private final static Pattern IMG_URL = Pattern
@@ -45,14 +45,14 @@ public class StringUtils {
     private final static Pattern URL = Pattern
             .compile("^(https|http)://.*?$(net|com|.com.cn|org|me|)");
 
-    private final static ThreadLocal<SimpleDateFormat> dateFormater = new ThreadLocal<SimpleDateFormat>() {
+    private final static ThreadLocal<SimpleDateFormat> DATE_FORMATER = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         }
     };
 
-    private final static ThreadLocal<SimpleDateFormat> dateFormater2 = new ThreadLocal<SimpleDateFormat>() {
+    private final static ThreadLocal<SimpleDateFormat> DATE_FORMATER_2 = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
             return new SimpleDateFormat("yyyy-MM-dd");
@@ -66,7 +66,7 @@ public class StringUtils {
      * @return
      */
     public static Date toDate(String sdate) {
-        return toDate(sdate, dateFormater.get());
+        return toDate(sdate, DATE_FORMATER.get());
     }
 
     public static Date toDate(String sdate, SimpleDateFormat dateFormater) {
@@ -78,7 +78,7 @@ public class StringUtils {
     }
 
     public static String getDateString(Date date) {
-        return dateFormater.get().format(date);
+        return DATE_FORMATER.get().format(date);
     }
 
     /**
@@ -87,15 +87,7 @@ public class StringUtils {
      * @param time
      * @return
      */
-    public static String friendly_time(Date time) {
-        // Date time = null;
-        //
-        // if (TimeZoneUtil.isInEasternEightZones())
-        // time = toDate(sdate);
-        // else
-        // time = TimeZoneUtil.transformTime(toDate(sdate),
-        // TimeZone.getTimeZone("GMT+08"), TimeZone.getDefault());
-
+    public static String friendlyTime(Date time) {
         if (time == null) {
             return "Unknown";
         }
@@ -103,8 +95,8 @@ public class StringUtils {
         Calendar cal = Calendar.getInstance();
 
         // 判断是否是同一天
-        String curDate = dateFormater2.get().format(cal.getTime());
-        String paramDate = dateFormater2.get().format(time);
+        String curDate = DATE_FORMATER_2.get().format(cal.getTime());
+        String paramDate = DATE_FORMATER_2.get().format(time);
         if (curDate.equals(paramDate)) {
             int hour = (int) ((cal.getTimeInMillis() - time.getTime()) / 3600000);
             if (hour == 0)
@@ -140,7 +132,7 @@ public class StringUtils {
         } else if (days > 3 * 31 && days <= 4 * 31) {
             ftime = "3个月前";
         } else {
-            ftime = dateFormater2.get().format(time);
+            ftime = DATE_FORMATER_2.get().format(time);
         }
         return ftime;
     }
@@ -151,7 +143,7 @@ public class StringUtils {
      * @param sdate
      * @return
      */
-    public static String friendly_time(String sdate) {
+    public static String friendlyTime(String sdate) {
         Date time = null;
 
         if (TimeZoneUtil.isInEasternEightZones())
@@ -167,8 +159,8 @@ public class StringUtils {
         Calendar cal = Calendar.getInstance();
 
         // 判断是否是同一天
-        String curDate = dateFormater2.get().format(cal.getTime());
-        String paramDate = dateFormater2.get().format(time);
+        String curDate = DATE_FORMATER_2.get().format(cal.getTime());
+        String paramDate = DATE_FORMATER_2.get().format(time);
         if (curDate.equals(paramDate)) {
             int hour = (int) ((cal.getTimeInMillis() - time.getTime()) / 3600000);
             if (hour == 0)
@@ -204,12 +196,12 @@ public class StringUtils {
         } else if (days > 3 * 31 && days <= 4 * 31) {
             ftime = "3个月前";
         } else {
-            ftime = dateFormater2.get().format(time);
+            ftime = DATE_FORMATER_2.get().format(time);
         }
         return ftime;
     }
 
-    public static String friendly_time2(String sdate) {
+    public static String friendlyTime2(String sdate) {
         String res = "";
         if (isEmpty(sdate))
             return "";
@@ -268,8 +260,8 @@ public class StringUtils {
         Date time = toDate(sdate);
         Date today = new Date();
         if (time != null) {
-            String nowDate = dateFormater2.get().format(today);
-            String timeDate = dateFormater2.get().format(time);
+            String nowDate = DATE_FORMATER_2.get().format(today);
+            String timeDate = DATE_FORMATER_2.get().format(time);
             if (nowDate.equals(timeDate)) {
                 b = true;
             }
@@ -284,14 +276,14 @@ public class StringUtils {
      */
     public static long getToday() {
         Calendar cal = Calendar.getInstance();
-        String curDate = dateFormater2.get().format(cal.getTime());
+        String curDate = DATE_FORMATER_2.get().format(cal.getTime());
         curDate = curDate.replace("-", "");
         return Long.parseLong(curDate);
     }
 
     public static String getCurTimeStr() {
         Calendar cal = Calendar.getInstance();
-        String curDate = dateFormater.get().format(cal.getTime());
+        String curDate = DATE_FORMATER.get().format(cal.getTime());
         return curDate;
     }
 
@@ -313,8 +305,8 @@ public class StringUtils {
         Date d2 = null;
 
         try {
-            d1 = dateFormater.get().parse(dete1);
-            d2 = dateFormater.get().parse(date2);
+            d1 = DATE_FORMATER.get().parse(dete1);
+            d2 = DATE_FORMATER.get().parse(date2);
 
             // 毫秒ms
             diff = d2.getTime() - d1.getTime();
@@ -354,7 +346,7 @@ public class StringUtils {
     public static boolean isEmail(String email) {
         if (email == null || email.trim().length() == 0)
             return false;
-        return emailer.matcher(email).matches();
+        return EMAILER.matcher(email).matches();
     }
 
     /**
@@ -385,7 +377,8 @@ public class StringUtils {
         Pattern p = null;
         Matcher m = null;
         boolean b = false;
-        p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+        // 验证手机号
+        p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$");
         m = p.matcher(mobiles);
         b = m.matches();
         return b;

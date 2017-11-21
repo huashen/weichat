@@ -65,6 +65,7 @@ System.out.println(">>>>>ClientLoginHandler channelRead0:" + message);
         ReferenceCountUtil.release(message);
     }
 
+    @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         logger.info("ClientLoginHandler Connected from");
     }

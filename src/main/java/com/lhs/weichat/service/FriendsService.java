@@ -60,10 +60,10 @@ public interface FriendsService {
      * 获取好友的在线状态
      *
      * @param userId
-     * @param FriendsId
+     * @param friendsId
      * @return
      */
-    int getFriendsOnlineStatus(int userId, int FriendsId);
+    int getFriendsOnlineStatus(int userId, int friendsId);
 
     /**
      * @param f
