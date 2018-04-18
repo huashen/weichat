@@ -17,21 +17,21 @@ public class TestApplication {
         Session session = new Session("127.0.0.1", 8888);
         session.connect();
 
-        String content = "雯雯";
+        String content = "你好啊";
         int toId = 1;
 
-        ChatMessage chatMessage = new ChatMessage();
-        chatMessage.setContent("雯雯");
-
-        chatMessage.setFromId(1);
-        chatMessage.setDate(new Date());
-        chatMessage.setType(ChatMessage.TYPE_SEND);
-        chatMessage.setContentType(ChatMessage.CONTENT_TYPE_NORMAL);
-        chatMessage.setMsgType(ChatMessage.MSG_TYPE_UU);
-        chatMessage.setToId(1);
-
+//        ChatMessage chatMessage = new ChatMessage();
+//        chatMessage.setContent("雯雯");
+//
+//        chatMessage.setFromId(2);
+//        chatMessage.setDate(new Date());
+//        chatMessage.setType(ChatMessage.TYPE_SEND);
+//        chatMessage.setContentType(ChatMessage.CONTENT_TYPE_NORMAL);
+//        chatMessage.setMsgType(ChatMessage.MSG_TYPE_UU);
+//        chatMessage.setToId(1);
+//
         String uuid = UUIDUtil.uuid();
-        chatMessage.setUuid(uuid);
+//        chatMessage.setUuid(uuid);
 
         session.sendMessage(uuid, ChatMessage.CONTENT_TYPE_NORMAL,
                 content, toId, ChatMessage.MSG_TYPE_UU, "", "");

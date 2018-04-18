@@ -62,7 +62,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<ChatMessage> {
 
             switch (msg.getMsgType()) {
                 case ChatMessage.MSG_TYPE_UU:
-                    Friends friends = friendsService.getFriendsByUserIdAndFriendsId(msg.getFromId(), msg.getToId());
+                    Friends friends = friendsService.getFriendsByUserIdAndFriendsId(2, 1);
                     if (friends != null) {
                         sessionManager.sendMessage(msg);
                     }

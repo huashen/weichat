@@ -230,7 +230,7 @@ public class SessionManager {
             for (UserAuthToken token : userAuthTokenSet) {
                 Session session = SessionManager.get(msg.getToId() + token.getToken());
                 if (session != null) {
-                    session.send(msg);
+                    session.send(message);
                     if (msg.getAttachment() != null) {
                         Msg.Message d = MsgHelper.newFileDownloadMessage(msg.getAttachment());
                         session.send(d);

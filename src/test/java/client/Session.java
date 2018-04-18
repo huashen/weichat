@@ -165,8 +165,8 @@ public class Session {
 
         switch (msgType) {
             case ChatMessage.MSG_TYPE_UU:
-                msg = MsgHelper.newUUChatMessage(uuid, 1, toId,
-                        message, "123456", true,
+                msg = MsgHelper.newUUChatMessage(uuid, 2, toId,
+                        message, "345678", true,
                         StringUtils.getCurrentStringDate(), 0, contentType,
                         fileGroupName, filePath, ChatMessage.STATUS_SEND);
                 break;
@@ -193,8 +193,8 @@ public class Session {
         Msg.Message loginMsg = Msg.Message
                 .newBuilder()
                 .setClientLoginMessage(
-                        Msg.ClientLoginMessage.newBuilder().setToken("123456")
-                                .setUserId(1).build())
+                        Msg.ClientLoginMessage.newBuilder().setToken("345678")
+                                .setUserId(2).build())
                 .setMessageType(Msg.MessageType.CLIENT_LOGIN).build();
         socketChannel.writeAndFlush(loginMsg);
     }
