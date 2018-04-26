@@ -11,6 +11,10 @@ MyBatis Generator | 代码生成
 Protobuf | 数据序列化
 Maven | 项目构建管理
 Netty | 网络框架
+mpush | 实时消息推送系统(类似极光推送)
 
 ##### 会话
 ![](images/image-01.png)
+
+### 消息推送
+![](images/image-02.png)

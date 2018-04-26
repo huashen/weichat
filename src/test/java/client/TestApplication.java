@@ -17,7 +17,7 @@ public class TestApplication {
         Session session = new Session("127.0.0.1", 8888);
         session.connect();
 
-        String content = "你好啊";
+        String content = "人生经验 谈笑风生";
         int toId = 1;
 
 //        ChatMessage chatMessage = new ChatMessage();
