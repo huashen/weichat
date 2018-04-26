@@ -17,4 +17,4 @@ mpush | 实时消息推送系统(类似极光推送)
 ![](images/image-01.png)
 
 ### 消息推送
-![](images/image-02.png)
+![](images/image-02.jpg)
